@@ -2,25 +2,22 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2576884527497195"
-     crossorigin="anonymous"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2576884527497195" crossorigin="anonymous"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>多功能工具箱</title>
     <style>
         :root {
-            --primary-pink: #FFB6C1;    /* 浅粉色 */
-            --secondary-beige: #F5F5DC; /* 米黄色 */
-            --accent-blue: #E0F7FA;     /* 浅蓝色 */
+            --primary-pink: #FFB6C1;
+            --secondary-beige: #F5F5DC;
+            --accent-blue: #E0F7FA;
             --dark-text: #333333;
             --light-text: #666666;
         }
-        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
@@ -28,13 +25,11 @@
             background: linear-gradient(135deg, var(--accent-blue) 0%, var(--secondary-beige) 100%);
             min-height: 100vh;
         }
-        
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
         }
-        
         header {
             background-color: var(--primary-pink);
             color: white;
@@ -44,24 +39,20 @@
             margin-bottom: 2rem;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
-        
         header h1 {
             font-size: 2.5rem;
             margin-bottom: 0.5rem;
         }
-        
         .subtitle {
             font-size: 1.2rem;
             opacity: 0.9;
         }
-        
         .tool-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
             gap: 25px;
             margin-bottom: 2rem;
         }
-        
         .tool-card {
             background: white;
             border-radius: 12px;
@@ -70,12 +61,10 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             border-top: 5px solid var(--primary-pink);
         }
-        
         .tool-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
         }
-        
         .tool-card h3 {
             color: #D81B60;
             margin-bottom: 1rem;
@@ -83,22 +72,18 @@
             align-items: center;
             gap: 10px;
         }
-        
         .tool-card h3 i {
             font-size: 1.5rem;
         }
-        
         .input-group {
             margin-bottom: 1rem;
         }
-        
         label {
             display: block;
             margin-bottom: 0.5rem;
             color: var(--light-text);
             font-weight: 500;
         }
-        
         input, textarea, select {
             width: 100%;
             padding: 0.8rem;
@@ -107,18 +92,15 @@
             font-size: 1rem;
             transition: border-color 0.3s;
         }
-        
         input:focus, textarea:focus, select:focus {
             outline: none;
             border-color: var(--primary-pink);
         }
-        
         textarea {
             min-height: 120px;
             resize: vertical;
             font-family: monospace;
         }
-        
         button {
             background-color: var(--primary-pink);
             color: white;
@@ -130,11 +112,9 @@
             transition: background-color 0.3s;
             font-weight: 600;
         }
-        
         button:hover {
             background-color: #FF8BA7;
         }
-        
         .result {
             background-color: var(--accent-blue);
             padding: 1rem;
@@ -146,14 +126,12 @@
             word-break: break-all;
             border-left: 4px solid #4DD0E1;
         }
-        
         .char-table {
             display: grid;
             grid-template-columns: repeat(8, 1fr);
             gap: 8px;
             margin-top: 1rem;
         }
-        
         .char-item {
             background-color: #f8f9fa;
             border: 1px solid #dee2e6;
@@ -163,18 +141,15 @@
             cursor: pointer;
             transition: all 0.2s;
         }
-        
         .char-item:hover {
             background-color: var(--primary-pink);
             color: white;
             transform: scale(1.1);
         }
-        
         .price-list {
             list-style: none;
             margin-top: 1rem;
         }
-        
         .price-item {
             background-color: #f8f9fa;
             padding: 0.8rem;
@@ -184,11 +159,9 @@
             justify-content: space-between;
             align-items: center;
         }
-        
         .price-item.sorted {
             background-color: var(--accent-blue);
         }
-        
         footer {
             text-align: center;
             padding: 1rem;
@@ -198,62 +171,19 @@
             border-radius: 0 0 15px 15px;
             margin-top: 2rem;
         }
-        
         @media (max-width: 768px) {
             .tool-grid {
                 grid-template-columns: 1fr;
             }
-            
             .char-table {
                 grid-template-columns: repeat(6, 1fr);
             }
         }
-        
-        .qr-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-            margin-top: 1rem;
-        }
-        
-        .qr-code {
-            width: 250px;
-            height: 250px;
-            border: 1px solid #ddd;
-            background-color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto;
-        }
-        
-        .qr-controls {
-            display: flex;
-            gap: 10px;
-            margin-top: 1rem;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        
-        .qr-controls select {
-            width: auto;
-        }
-        
-        .download-btn {
-            background-color: #4CAF50;
-        }
-        
-        .download-btn:hover {
-            background-color: #45a049;
-        }
-        
         .tool-actions {
             display: flex;
             gap: 10px;
             margin-top: 1rem;
         }
-        
         .tool-actions button {
             flex: 1;
         }
@@ -266,34 +196,25 @@
             <h1><i class="fas fa-toolbox"></i> 多功能工具箱</h1>
             <p class="subtitle">一站式网页工具集合</p>
         </header>
-        
         <div class="tool-grid">
-            <!-- Base64编码/解码工具 -->
             <div class="tool-card">
                 <h3><i class="fas fa-lock"></i> Base64编码/解码</h3>
                 <p>将文本转换为Base64格式或从Base64解码回文本</p>
-                
                 <div class="input-group">
                     <label for="base64Input">输入要编码/解码的文本：</label>
                     <textarea id="base64Input" placeholder="请输入要编码或解码的文本...">Hello, welcome to the toolbox!</textarea>
                 </div>
-                
                 <div class="tool-actions">
                     <button onclick="encodeBase64()">编码为Base64</button>
                     <button onclick="decodeBase64()" style="background-color: #2196F3;">解码Base64</button>
                 </div>
-                
                 <div id="base64Result" class="result">
                     结果将显示在这里
                 </div>
             </div>
-            
-            <!-- 价格排序工具 -->
             <div class="tool-card">
                 <h3><i class="fas fa-sort-amount-down"></i> 商品价格排序器</h3>
-                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2576884527497195"
-     crossorigin="anonymous"></script>
-<!-- 广告 -->
+                <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2576884527497195" crossorigin="anonymous"></script>
 <ins class="adsbygoogle"
      style="display:block"
      data-ad-client="ca-pub-2576884527497195"
@@ -304,7 +225,6 @@
      (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
                 <p>为购物网站、汽车网站等提取商品价格并进行排序</p>
-                
                 <div class="input-group">
                     <label for="priceInput">输入商品价格列表（每行一个，格式：商品名 价格）：</label>
                     <textarea id="priceInput" placeholder="示例：
@@ -320,7 +240,6 @@ iPhone 16 Pro 8,999
 华为Mate 60 7,999
 奔驰 C级 358,000</textarea>
                 </div>
-                
                 <div class="input-group">
                     <label>排序方式：</label>
                     <select id="sortOrder">
@@ -328,64 +247,14 @@ iPhone 16 Pro 8,999
                         <option value="desc">从高到低</option>
                     </select>
                 </div>
-                
                 <button onclick="sortPrices()">开始排序</button>
-                
                 <div id="priceResult" class="result">
                     排序结果将显示在这里
                 </div>
             </div>
-            
-            <!-- 二维码生成器 -->
-            <div class="tool-card">
-                <h3><i class="fas fa-qrcode"></i> 二维码生成器</h3>
-                <p>生成文本或URL的二维码，支持自定义颜色和尺寸</p>
-                
-                <div class="input-group">
-                    <label for="qrInput">输入文本或URL：</label>
-                    <textarea id="qrInput" placeholder="输入要生成二维码的内容...">https://toolbox.example.com</textarea>
-                </div>
-                
-                <div class="qr-controls">
-                    <div>
-                        <label>尺寸：</label>
-                        <select id="qrSize">
-                            <option value="200">200x200</option>
-                            <option value="250" selected>250x250</option>
-                            <option value="300">300x300</option>
-                        </select>
-                    </div>
-                    
-                    <div>
-                        <label>颜色：</label>
-                        <select id="qrColor">
-                            <option value="#000000">黑色</option>
-                            <option value="#FF6B8B">粉色</option>
-                            <option value="#FFB6C1">浅粉色</option>
-                            <option value="#4CAF50">绿色</option>
-                            <option value="#2196F3">蓝色</option>
-                            <option value="#E91E63">玫红</option>
-                        </select>
-                    </div>
-                </div>
-                
-                <div style="display: flex; gap: 10px; margin-top: 1rem;">
-                    <button onclick="generateQRCode()">生成二维码</button>
-                    <button id="downloadBtn" class="download-btn" onclick="downloadQRCode()" style="display:none;">下载二维码</button>
-                </div>
-                
-                <div class="qr-container">
-                    <div id="qrCode" class="qr-code">
-                        <div style="color: #999; text-align: center;">二维码将显示在这里</div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- 特殊字符表 -->
             <div class="tool-card">
                 <h3><i class="fas fa-symbols"></i> 特殊字符表</h3>
                 <p>点击字符即可复制到剪贴板</p>
-                
                 <div class="input-group">
                     <label>选择字符类别：</label>
                     <select id="charCategory" onchange="updateCharTable()">
@@ -396,65 +265,48 @@ iPhone 16 Pro 8,999
                         <option value="tech">技术符号</option>
                     </select>
                 </div>
-                
                 <div id="charTable" class="char-table">
-                    <!-- 字符将通过JavaScript动态生成 -->
                 </div>
-                
                 <div class="input-group" style="margin-top: 1rem;">
                     <label>已复制的字符：</label>
                     <input type="text" id="copiedChar" readonly placeholder="点击上方字符进行复制">
                 </div>
             </div>
-            
-            <!-- 颜色选择器 -->
             <div class="tool-card">
                 <h3><i class="fas fa-palette"></i> 颜色选择器</h3>
                 <p>选择颜色并获取HEX、RGB值</p>
-                
                 <div class="input-group">
                     <label>选择颜色：</label>
                     <input type="color" id="colorPicker" value="#FFB6C1">
                 </div>
-                
                 <div class="input-group">
                     <label>HEX值：</label>
                     <input type="text" id="hexValue" readonly>
                 </div>
-                
                 <div class="input-group">
                     <label>RGB值：</label>
                     <input type="text" id="rgbValue" readonly>
                 </div>
-                
                 <div id="colorPreview" style="width: 100%; height: 60px; border-radius: 8px; margin-top: 1rem;"></div>
             </div>
-            
-            <!-- 计算器工具 -->
             <div class="tool-card">
                 <h3><i class="fas fa-calculator"></i> 多功能计算器</h3>
                 <p>进行基本计算和单位转换</p>
-                
                 <div class="input-group">
                     <label>计算表达式：</label>
                     <input type="text" id="calcInput" placeholder="例如：2+3 * 4 或 100 USD to CNY" value="2+3 * 4">
                 </div>
-                
                 <div style="display: flex; gap: 10px; margin-bottom: 1rem;">
                     <button onclick="calculateExpression()">计算</button>
                     <button onclick="convertCurrency()">货币转换</button>
                 </div>
-                
                 <div id="calcResult" class="result">
                     计算结果将显示在这里
                 </div>
             </div>
-            
-            <!-- Markdown预览 -->
             <div class="tool-card">
                 <h3><i class="fab fa-markdown"></i> Markdown预览</h3>
                 <p>实时预览Markdown格式文本</p>
-                
                 <div class="input-group">
                     <label for="markdownInput">输入Markdown文本：</label>
                     <textarea id="markdownInput" placeholder="# 标题
@@ -467,12 +319,9 @@ iPhone 16 Pro 8,999
 - **特殊字符**：快速插入符号
 - **Base64编解码**：文本编码转换
 - **颜色选择**：获取颜色值
-- **二维码**：生成二维码
 - **计算器**：基本计算和转换</textarea>
                 </div>
-                
                 <button onclick="previewMarkdown()">预览</button>
-                
                 <div class="input-group" style="margin-top: 1rem;">
                     <label>预览效果：</label>
                     <div id="markdownPreview" style="min-height: 150px; padding: 1rem; border: 1px solid #ddd; border-radius: 8px; background-color: white;">
@@ -480,42 +329,31 @@ iPhone 16 Pro 8,999
                     </div>
                 </div>
             </div>
-            
-            <!-- JSON格式化 -->
             <div class="tool-card">
                 <h3><i class="fas fa-code"></i> JSON格式化</h3>
                 <p>美化和验证JSON数据</p>
-                
                 <div class="input-group">
                     <label for="jsonInput">输入JSON：</label>
-                    <textarea id="jsonInput" placeholder='{"tool": "工具箱", "features": ["排序", "字符表", "二维码"], "colors": ["粉色", "米黄", "浅蓝"]}'>{ "name": "工具箱", "version": "1.0", "tools": ["价格排序", "特殊字符表", "Base64编解码", "二维码生成", "计算器", "Markdown预览", "JSON格式化"], "theme": ["粉色", "米黄色", "浅蓝色"] }</textarea>
+                    <textarea id="jsonInput" placeholder='{"tool": "工具箱", "features": ["排序", "字符表", "二维码"], "colors": ["粉色", "米黄", "浅蓝"]}'>{ "name": "工具箱", "version": "1.0", "tools": ["价格排序", "特殊字符表", "Base64编解码", "计算器", "Markdown预览", "JSON格式化"], "theme": ["粉色", "米黄色", "浅蓝色"] }</textarea>
                 </div>
-                
                 <button onclick="formatJSON()">格式化</button>
                 <button onclick="validateJSON()" style="background-color: #4CAF50; margin-left: 10px;">验证</button>
-                
                 <div id="jsonResult" class="result">
                     JSON结果将显示在这里
                 </div>
             </div>
         </div>
-        
         <footer>
-            <!-- 这里保持空白 -->
         </footer>
     </div>
-
     <script>
-        // ========== Base64编码/解码功能 ==========
         function encodeBase64() {
             const input = document.getElementById('base64Input').value;
             if (!input.trim()) {
                 document.getElementById('base64Result').innerHTML = '<div style="color: #f44336;">请输入要编码的文本</div>';
                 return;
             }
-            
             try {
-                // 使用btoa进行Base64编码
                 const encoded = btoa(unescape(encodeURIComponent(input)));
                 document.getElementById('base64Result').innerHTML = `
                     <div style="margin-bottom: 10px;">
@@ -535,16 +373,13 @@ iPhone 16 Pro 8,999
                 document.getElementById('base64Result').innerHTML = `<div style="color: #f44336;">编码失败：${error.message}</div>`;
             }
         }
-        
         function decodeBase64() {
             const input = document.getElementById('base64Input').value.trim();
             if (!input) {
                 document.getElementById('base64Result').innerHTML = '<div style="color: #f44336;">请输入要解码的Base64字符串</div>';
                 return;
             }
-            
             try {
-                // 使用atob进行Base64解码
                 const decoded = decodeURIComponent(escape(atob(input)));
                 document.getElementById('base64Result').innerHTML = `
                     <div style="margin-bottom: 10px;">
@@ -564,7 +399,6 @@ iPhone 16 Pro 8,999
                 document.getElementById('base64Result').innerHTML = `<div style="color: #f44336;">解码失败：无效的Base64字符串</div>`;
             }
         }
-        
         function copyToClipboard(text) {
             navigator.clipboard.writeText(text).then(() => {
                 alert('已复制到剪贴板！');
@@ -573,15 +407,11 @@ iPhone 16 Pro 8,999
                 alert('复制失败，请手动复制');
             });
         }
-        
-        // ========== 价格排序功能 ==========
         function sortPrices() {
             const input = document.getElementById('priceInput').value;
             const sortOrder = document.getElementById('sortOrder').value;
             const lines = input.split('\n').filter(line => line.trim() !== '');
-            
             const priceData = [];
-            
             lines.forEach(line => {
                 const priceInfo = extractPrice(line);
                 if (priceInfo) {
@@ -592,17 +422,12 @@ iPhone 16 Pro 8,999
                     });
                 }
             });
-            
-            // 排序
             if (sortOrder === 'asc') {
                 priceData.sort((a, b) => a.price - b.price);
             } else {
                 priceData.sort((a, b) => b.price - a.price);
             }
-            
-            // 显示结果
             let resultHTML = `<h4>排序结果（${sortOrder === 'asc' ? '从低到高' : '从高到低'}）：</h4>`;
-            
             if (priceData.length === 0) {
                 resultHTML += '<p style="color: #f44336;">未找到有效的价格数据</p>';
                 resultHTML += '<p style="color: #666; font-size: 0.9rem;">建议格式: 商品名称 价格 (如: 特斯拉 Model 3 289,900)</p>';
@@ -619,48 +444,33 @@ iPhone 16 Pro 8,999
                 resultHTML += '</ul>';
                 resultHTML += `<p style="color: #666; font-size: 0.9rem; margin-top: 1rem;">成功解析 ${priceData.length} 个商品</p>`;
             }
-            
             document.getElementById('priceResult').innerHTML = resultHTML;
         }
-        
         function extractPrice(line) {
             const numberPattern = /\d[\d,]*\.?\d*/g;
             const matches = line.match(numberPattern);
-            
             if (!matches || matches.length === 0) return null;
-            
             const candidates = matches.map((match, index) => {
                 let score = 0;
                 const priceValue = parseFloat(match.replace(/,/g, ''));
-                
-                // 包含逗号加分
                 if (match.includes(',')) score += 30;
-                
-                // 金额较大加分
                 if (priceValue > 100) score += 20;
                 if (priceValue > 1000) score += 10;
                 if (priceValue > 10000) score += 10;
-                
-                // 位于字符串末尾加分
                 const position = line.lastIndexOf(match);
                 const distanceFromEnd = line.length - (position + match.length);
                 if (distanceFromEnd < 5) score += 25;
-                
-                // 前面有货币符号加分
                 const beforePrice = line.substring(0, position).trim();
                 if (beforePrice.endsWith('¥') || beforePrice.endsWith('$') || 
                     beforePrice.endsWith('€') || beforePrice.endsWith('£')) {
                     score += 40;
                 }
-                
-                // 前面有关键词加分
                 const lowerBefore = beforePrice.toLowerCase();
                 if (lowerBefore.includes('价格') || lowerBefore.includes('售价') || 
                     lowerBefore.includes('报价') || lowerBefore.includes('元') ||
                     lowerBefore.includes('刀') || lowerBefore.includes('$')) {
                     score += 15;
                 }
-                
                 return {
                     match: match,
                     position: position,
@@ -668,140 +478,17 @@ iPhone 16 Pro 8,999
                     value: priceValue
                 };
             });
-            
             candidates.sort((a, b) => b.score - a.score);
             const bestCandidate = candidates[0];
-            
             if (bestCandidate.score < 30) return null;
-            
             const priceStart = bestCandidate.position;
             let itemName = line.substring(0, priceStart).trim();
             itemName = itemName.replace(/[¥$€£]?\s*[:：]?\s*$/g, '');
-            
             return {
                 name: itemName || '未命名商品',
                 price: bestCandidate.value
             };
         }
-        
-        // ========== 二维码生成功能 ==========
-        function generateQRCode() {
-            const text = document.getElementById('qrInput').value.trim();
-            const size = parseInt(document.getElementById('qrSize').value);
-            const color = document.getElementById('qrColor').value;
-            const qrContainer = document.getElementById('qrCode');
-            const downloadBtn = document.getElementById('downloadBtn');
-            
-            if (!text) {
-                qrContainer.innerHTML = '<div style="color: #f44336; text-align: center;">请输入要生成二维码的内容</div>';
-                downloadBtn.style.display = 'none';
-                return;
-            }
-            
-            // 清空容器
-            qrContainer.innerHTML = '';
-            
-            // 创建画布
-            const canvas = document.createElement('canvas');
-            const ctx = canvas.getContext('2d');
-            canvas.width = size;
-            canvas.height = size;
-            
-            try {
-                // 填充白色背景
-                ctx.fillStyle = '#FFFFFF';
-                ctx.fillRect(0, 0, size, size);
-                
-                // 设置二维码颜色
-                ctx.fillStyle = color;
-                
-                // 生成二维码数据
-                const qrSize = 21;
-                const moduleSize = Math.floor(size / (qrSize + 8));
-                const offset = (size - qrSize * moduleSize) / 2;
-                
-                // 生成基于文本内容的伪随机模式
-                let hash = 0;
-                for (let i = 0; i < text.length; i++) {
-                    hash = text.charCodeAt(i) + ((hash << 5) - hash);
-                }
-                
-                // 绘制定位标记
-                drawFinderPattern(ctx, offset, offset, moduleSize);
-                drawFinderPattern(ctx, offset + (qrSize - 7) * moduleSize, offset, moduleSize);
-                drawFinderPattern(ctx, offset, offset + (qrSize - 7) * moduleSize, moduleSize);
-                
-                // 绘制数据模块
-                for (let y = 0; y < qrSize; y++) {
-                    for (let x = 0; x < qrSize; x++) {
-                        // 跳过定位标记区域
-                        if ((x < 8 && y < 8) || 
-                            (x > qrSize - 9 && y < 8) || 
-                            (x < 8 && y > qrSize - 9)) {
-                            continue;
-                        }
-                        
-                        // 使用文本哈希生成确定性图案
-                        const value = (hash * (x + 1) * (y + 1)) % 100;
-                        if (value < 50) {
-                            ctx.fillRect(
-                                offset + x * moduleSize,
-                                offset + y * moduleSize,
-                                moduleSize,
-                                moduleSize
-                            );
-                        }
-                    }
-                }
-                
-                // 添加到容器
-                qrContainer.appendChild(canvas);
-                downloadBtn.style.display = 'inline-block';
-                
-                // 存储用于下载
-                canvas.dataset.qrText = text;
-                qrContainer.dataset.canvas = canvas.toDataURL('image/png');
-                
-            } catch (error) {
-                console.error('生成二维码出错:', error);
-                qrContainer.innerHTML = '<div style="color: #f44336; text-align: center;">生成二维码时出错</div>';
-                downloadBtn.style.display = 'none';
-            }
-        }
-        
-        function drawFinderPattern(ctx, x, y, moduleSize) {
-            // 外部黑框 7x7
-            ctx.fillStyle = '#000000';
-            ctx.fillRect(x, y, 7 * moduleSize, 7 * moduleSize);
-            
-            // 内部白色 5x5
-            ctx.fillStyle = '#FFFFFF';
-            ctx.fillRect(x + moduleSize, y + moduleSize, 5 * moduleSize, 5 * moduleSize);
-            
-            // 中心黑点 3x3
-            ctx.fillStyle = '#000000';
-            ctx.fillRect(x + 2 * moduleSize, y + 2 * moduleSize, 3 * moduleSize, 3 * moduleSize);
-        }
-        
-        function downloadQRCode() {
-            const qrContainer = document.getElementById('qrCode');
-            const canvasData = qrContainer.dataset.canvas;
-            
-            if (!canvasData) {
-                alert('请先生成二维码');
-                return;
-            }
-            
-            const text = document.getElementById('qrInput').value.trim().substring(0, 20);
-            const link = document.createElement('a');
-            link.href = canvasData;
-            link.download = `qrcode-${text.replace(/[^a-z0-9]/gi, '-')}.png`;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        }
-        
-        // ========== 特殊字符表 ==========
         const charData = {
             math: ['∑', '∫', '∏', '√', '∞', '≠', '≈', '≤', '≥', '±', '×', '÷', '∂', '∆', '∇', '∅', '∈', '∉', '∩', '∪', '⊂', '⊃', '⊆', '⊇', '∧', '∨', '∀', '∃', '∴', '∵'],
             currency: ['$', '€', '£', '¥', '¢', '₩', '₹', '₽', '₿', '₺', '₴', '₸', '₮', '₦', '₱', '฿', '៛', '₫', '₭', '₲', '₵', '₡', '₢', '₤', '₥', '₧', '₨', '₪'],
@@ -809,14 +496,11 @@ iPhone 16 Pro 8,999
             emoji: ['😀', '😂', '🤣', '😊', '😍', '🥰', '😎', '🤩', '🥳', '😜', '🤪', '😇', '🥺', '😢', '😭', '😡', '🤬', '🤯', '🥶', '😱', '🤔', '😴', '🥱', '😈', '👻', '💀', '👽', '🤖', '💩', '🎃'],
             tech: ['⌘', '⌥', '⌃', '⇧', '⇪', '⌫', '⌦', '↩', '⏎', '⎋', '⇥', '⏏', '⏭', '⏮', '⏯', '⏹', '⏺', '⏏', '⏩', '⏪', '⏫', '⏬', '◀', '▶', '▲', '▼', '◆', '■', '○', '●']
         };
-        
         function updateCharTable() {
             const category = document.getElementById('charCategory').value;
             const chars = charData[category] || [];
             const charTable = document.getElementById('charTable');
-            
             charTable.innerHTML = '';
-            
             chars.forEach(char => {
                 const charItem = document.createElement('div');
                 charItem.className = 'char-item';
@@ -836,31 +520,23 @@ iPhone 16 Pro 8,999
                 charTable.appendChild(charItem);
             });
         }
-        
-        // ========== 颜色选择器 ==========
         function initColorPicker() {
             const colorPicker = document.getElementById('colorPicker');
             const hexValue = document.getElementById('hexValue');
             const rgbValue = document.getElementById('rgbValue');
             const colorPreview = document.getElementById('colorPreview');
-            
             function updateColor() {
                 const color = colorPicker.value;
                 hexValue.value = color;
-                
-                // 转换HEX到RGB
                 const r = parseInt(color.slice(1, 3), 16);
                 const g = parseInt(color.slice(3, 5), 16);
                 const b = parseInt(color.slice(5, 7), 16);
                 rgbValue.value = `rgb(${r}, ${g}, ${b})`;
                 colorPreview.style.backgroundColor = color;
             }
-            
             colorPicker.addEventListener('input', updateColor);
             updateColor();
         }
-        
-        // ========== 计算功能 ==========
         function calculateExpression() {
             const expr = document.getElementById('calcInput').value;
             try {
@@ -874,16 +550,13 @@ iPhone 16 Pro 8,999
                 document.getElementById('calcResult').textContent = `错误: 无法计算表达式 "${expr}"`;
             }
         }
-        
         function convertCurrency() {
             const input = document.getElementById('calcInput').value.toUpperCase();
             const match = input.match(/(\d+(\.\d+)?)\s*([A-Z]{3})\s*TO\s*([A-Z]{3})/i);
-            
             if (match) {
                 const amount = parseFloat(match[1]);
                 const from = match[3];
                 const to = match[4];
-                
                 const rates = {
                     'USD': { 'CNY': 7.2, 'EUR': 0.92, 'JPY': 150 },
                     'CNY': { 'USD': 0.14, 'EUR': 0.13, 'JPY': 21 },
@@ -904,8 +577,6 @@ iPhone 16 Pro 8,999
                     '请使用格式: 100 USD to CNY';
             }
         }
-        
-        // ========== Markdown预览 ==========
         function previewMarkdown() {
             const text = document.getElementById('markdownInput').value;
             let html = text;
@@ -922,8 +593,6 @@ iPhone 16 Pro 8,999
             
             document.getElementById('markdownPreview').innerHTML = html;
         }
-        
-        // ========== JSON格式化 ==========
         function formatJSON() {
             const input = document.getElementById('jsonInput').value;
             try {
@@ -934,7 +603,6 @@ iPhone 16 Pro 8,999
                 document.getElementById('jsonResult').textContent = 'JSON格式错误: ' + e.message;
             }
         }
-        
         function validateJSON() {
             const input = document.getElementById('jsonInput').value;
             try {
@@ -946,25 +614,12 @@ iPhone 16 Pro 8,999
                 document.getElementById('jsonResult').style.color = '#f44336';
             }
         }
-        
-        // ========== 初始化页面 ==========
         document.addEventListener('DOMContentLoaded', function() {
             updateCharTable();
             initColorPicker();
-            
-            // 初始化计算器示例
             calculateExpression();
-            
-            // 初始化Markdown预览
             previewMarkdown();
-            
-            // 初始化JSON格式化
             formatJSON();
-            
-            // 初始生成一个二维码
-            setTimeout(() => generateQRCode(), 500);
-            
-            // 初始化Base64示例
             document.getElementById('base64Input').value = "Hello, welcome to the toolbox!";
             encodeBase64();
         });
