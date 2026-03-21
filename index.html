@@ -2,7 +2,6 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2576884527497195" crossorigin="anonymous"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>多功能工具箱</title>
     <style>
@@ -13,11 +12,13 @@
             --dark-text: #333333;
             --light-text: #666666;
         }
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+        
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
@@ -25,11 +26,13 @@
             background: linear-gradient(135deg, var(--accent-blue) 0%, var(--secondary-beige) 100%);
             min-height: 100vh;
         }
+        
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 20px;
         }
+        
         header {
             background-color: var(--primary-pink);
             color: white;
@@ -39,10 +42,12 @@
             margin-bottom: 2rem;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
+        
         header h1 {
             font-size: 2.5rem;
             margin-bottom: 0.5rem;
         }
+        
         .header-info {
             display: flex;
             justify-content: space-between;
@@ -51,6 +56,7 @@
             gap: 1rem;
             margin-top: 1rem;
         }
+        
         .time-display {
             font-size: 1.5rem;
             background-color: rgba(255, 255, 255, 0.2);
@@ -59,22 +65,26 @@
             font-family: 'Courier New', monospace;
             font-weight: bold;
         }
+        
         .date-display {
             font-size: 1.1rem;
             background-color: rgba(255, 255, 255, 0.2);
             padding: 0.5rem 1rem;
             border-radius: 8px;
         }
+        
         .subtitle {
             font-size: 1.2rem;
             opacity: 0.9;
         }
+        
         .tool-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
             gap: 25px;
             margin-bottom: 2rem;
         }
+        
         .tool-card {
             background: white;
             border-radius: 12px;
@@ -83,10 +93,12 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             border-top: 5px solid var(--primary-pink);
         }
+        
         .tool-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
         }
+        
         .tool-card h3 {
             color: #D81B60;
             margin-bottom: 1rem;
@@ -94,18 +106,22 @@
             align-items: center;
             gap: 10px;
         }
+        
         .tool-card h3 i {
             font-size: 1.5rem;
         }
+        
         .input-group {
             margin-bottom: 1rem;
         }
+        
         label {
             display: block;
             margin-bottom: 0.5rem;
             color: var(--light-text);
             font-weight: 500;
         }
+        
         input, textarea, select {
             width: 100%;
             padding: 0.8rem;
@@ -114,15 +130,18 @@
             font-size: 1rem;
             transition: border-color 0.3s;
         }
+        
         input:focus, textarea:focus, select:focus {
             outline: none;
             border-color: var(--primary-pink);
         }
+        
         textarea {
             min-height: 120px;
             resize: vertical;
             font-family: monospace;
         }
+        
         button {
             background-color: var(--primary-pink);
             color: white;
@@ -134,9 +153,11 @@
             transition: background-color 0.3s;
             font-weight: 600;
         }
+        
         button:hover {
             background-color: #FF8BA7;
         }
+        
         .result {
             background-color: var(--accent-blue);
             padding: 1rem;
@@ -148,12 +169,14 @@
             word-break: break-all;
             border-left: 4px solid #4DD0E1;
         }
+        
         .char-table {
             display: grid;
             grid-template-columns: repeat(8, 1fr);
             gap: 8px;
             margin-top: 1rem;
         }
+        
         .char-item {
             background-color: #f8f9fa;
             border: 1px solid #dee2e6;
@@ -163,15 +186,18 @@
             cursor: pointer;
             transition: all 0.2s;
         }
+        
         .char-item:hover {
             background-color: var(--primary-pink);
             color: white;
             transform: scale(1.1);
         }
+        
         .price-list {
             list-style: none;
             margin-top: 1rem;
         }
+        
         .price-item {
             background-color: #f8f9fa;
             padding: 0.8rem;
@@ -181,9 +207,11 @@
             justify-content: space-between;
             align-items: center;
         }
+        
         .price-item.sorted {
             background-color: var(--accent-blue);
         }
+        
         footer {
             text-align: center;
             padding: 1rem;
@@ -193,6 +221,7 @@
             border-radius: 0 0 15px 15px;
             margin-top: 2rem;
         }
+        
         @media (max-width: 768px) {
             .tool-grid {
                 grid-template-columns: 1fr;
@@ -205,79 +234,43 @@
                 text-align: center;
             }
         }
+        
         .tool-actions {
             display: flex;
             gap: 10px;
             margin-top: 1rem;
         }
+        
         .tool-actions button {
             flex: 1;
         }
         
-        /* 在线画图功能样式 */
-        .drawing-container {
+        /* 实时时间样式 */
+        .time-container {
             display: flex;
             flex-direction: column;
-            gap: 1rem;
-        }
-        .drawing-tools {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-        .drawing-tool {
-            padding: 8px 12px;
-            background-color: #f5f5f5;
-            border: 2px solid #ddd;
-            border-radius: 6px;
-            cursor: pointer;
-            display: flex;
             align-items: center;
-            gap: 5px;
+            justify-content: center;
+            height: 200px;
         }
-        .drawing-tool:hover {
-            background-color: #e9e9e9;
+        
+        .live-time {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #D81B60;
+            font-family: 'Courier New', monospace;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
-        .drawing-tool.active {
-            background-color: var(--primary-pink);
-            color: white;
-            border-color: var(--primary-pink);
+        
+        .live-date {
+            font-size: 1.5rem;
+            margin-top: 0.5rem;
+            color: var(--light-text);
         }
-        .drawing-canvas-container {
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            overflow: hidden;
-            background-color: white;
-        }
-        .drawing-canvas {
-            display: block;
-            width: 100%;
-            height: 300px;
-            cursor: crosshair;
-        }
-        .color-palette {
-            display: flex;
-            gap: 5px;
-            flex-wrap: wrap;
-        }
-        .color-option {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            cursor: pointer;
-            border: 2px solid transparent;
-        }
-        .color-option:hover {
-            transform: scale(1.1);
-        }
-        .color-option.active {
-            border-color: #333;
-            box-shadow: 0 0 5px rgba(0,0,0,0.3);
-        }
-        .drawing-stats {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.9rem;
+        
+        .time-info {
+            margin-top: 1rem;
+            text-align: center;
             color: #666;
         }
         
@@ -287,65 +280,216 @@
             flex-direction: column;
             gap: 1rem;
         }
+        
         .converter-row {
             display: flex;
             gap: 10px;
             align-items: center;
         }
+        
         .converter-row input, .converter-row select {
             flex: 1;
         }
+        
         .converter-icon {
             width: 40px;
             text-align: center;
             font-size: 1.2rem;
             color: var(--primary-pink);
         }
-        .converter-category {
-            margin-top: 1rem;
-            padding-top: 1rem;
-            border-top: 1px solid #eee;
-        }
-        .converter-category h4 {
-            color: #D81B60;
-            margin-bottom: 0.5rem;
-        }
-        .converter-units {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 0.5rem;
-        }
-        .converter-unit {
-            background-color: #f8f9fa;
-            padding: 0.5rem;
-            border-radius: 5px;
-            font-size: 0.9rem;
-        }
         
-        /* 实时时间卡片样式 */
-        .time-container {
+        /* 画图板样式 */
+        .drawing-container {
             display: flex;
             flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .drawing-tools {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .drawing-tool {
+            padding: 8px 12px;
+            background-color: #f5f5f5;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
             align-items: center;
-            justify-content: center;
-            height: 200px;
+            gap: 5px;
+            transition: all 0.2s;
         }
-        .live-time {
-            font-size: 3rem;
-            font-weight: bold;
-            color: #D81B60;
-            font-family: 'Courier New', monospace;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        
+        .drawing-tool:hover {
+            background-color: #e9e9e9;
         }
-        .live-date {
-            font-size: 1.5rem;
-            margin-top: 0.5rem;
-            color: var(--light-text);
+        
+        .drawing-tool.active {
+            background-color: var(--primary-pink);
+            color: white;
+            border-color: var(--primary-pink);
         }
-        .time-info {
-            margin-top: 1rem;
-            text-align: center;
+        
+        .drawing-canvas-container {
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: white;
+            height: 300px;
+        }
+        
+        .drawing-canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+            cursor: crosshair;
+        }
+        
+        .color-palette {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+        
+        .color-option {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+        
+        .color-option:hover {
+            transform: scale(1.1);
+        }
+        
+        .color-option.active {
+            border-color: #333;
+            box-shadow: 0 0 5px rgba(0,0,0,0.3);
+        }
+        
+        .drawing-stats {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
             color: #666;
+        }
+        
+        /* 控制组样式 */
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        
+        .control-group label {
+            font-size: 0.9rem;
+            margin-bottom: 0.2rem;
+        }
+        
+        .control-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .special-btn {
+            background-color: #2196F3;
+        }
+        
+        .special-btn:hover {
+            background-color: #1976d2;
+        }
+        
+        .clear-btn {
+            background-color: #f44336;
+        }
+        
+        .clear-btn:hover {
+            background-color: #d32f2f;
+        }
+        
+        .save-btn {
+            background-color: #4CAF50;
+        }
+        
+        .save-btn:hover {
+            background-color: #388e3c;
+        }
+        
+        .undo-btn {
+            background-color: #2196F3;
+        }
+        
+        .undo-btn:hover {
+            background-color: #1976d2;
+        }
+        
+        /* 编辑器样式 */
+        .code-editor {
+            width: 100%;
+            height: 300px;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            padding: 1rem;
+            border: 2px solid #eee;
+            border-radius: 8px;
+            resize: vertical;
+        }
+        
+        .code-editor:focus {
+            outline: none;
+            border-color: var(--primary-pink);
+        }
+        
+        .editor-container {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .editor-header {
+            background-color: #f5f5f5;
+            padding: 0.5rem 1rem;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .editor-toolbar {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .editor-btn {
+            padding: 4px 8px;
+            font-size: 0.8rem;
+            background-color: #e0e0e0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .editor-btn:hover {
+            background-color: #d0d0d0;
+        }
+        
+        .editor-btn.active {
+            background-color: var(--primary-pink);
+            color: white;
+        }
+        
+        .editor-status {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 0.5rem;
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -354,7 +498,7 @@
     <div class="container">
         <header>
             <h1><i class="fas fa-toolbox"></i> 多功能工具箱</h1>
-            <p class="subtitle">一站式网页工具集合</p>
+            <p class="subtitle">一站式网页工具集合 - 所有功能一体化</p>
             <div class="header-info">
                 <div class="time-display">
                     <i class="fas fa-clock"></i> 北京时间: <span id="currentTime">00:00:00</span>
@@ -366,7 +510,7 @@
         </header>
         
         <div class="tool-grid">
-            <!-- 实时时间卡片 -->
+            <!-- 实时北京时间 -->
             <div class="tool-card">
                 <h3><i class="fas fa-clock"></i> 实时北京时间</h3>
                 <p>实时显示北京时间，每秒自动更新</p>
@@ -384,7 +528,7 @@
                     <button onclick="toggle24Hour()" id="timeFormatBtn">
                         <i class="fas fa-exchange-alt"></i> 切换12/24小时制
                     </button>
-                    <button onclick="copyTime()" style="background-color: #4CAF50;">
+                    <button onclick="copyTime()" class="save-btn">
                         <i class="fas fa-copy"></i> 复制当前时间
                     </button>
                 </div>
@@ -393,7 +537,7 @@
             <!-- 单位转换器 -->
             <div class="tool-card">
                 <h3><i class="fas fa-exchange-alt"></i> 多功能单位转换器</h3>
-                <p>支持货币、长度、面积、体积、时间、温度、重量、速度、数据存储等转换</p>
+                <p>支持货币、长度、面积、体积、时间、温度、重量、速度、数据存储转换</p>
                 
                 <div class="converter-container">
                     <div class="input-group">
@@ -412,7 +556,7 @@
                     </div>
                     
                     <div class="converter-row">
-                        <input type="number" id="fromValue" value="1" placeholder="输入数值">
+                        <input type="number" id="fromValue" value="1" placeholder="输入数值" step="0.01">
                         <select id="fromUnit"></select>
                         <div class="converter-icon">
                             <i class="fas fa-arrow-right"></i>
@@ -425,28 +569,19 @@
                         转换结果将显示在这里
                     </div>
                     
-                    <!-- 实时汇率信息 -->
-                    <div class="input-group" id="currencyInfo" style="display: none;">
-                        <label>汇率信息（示例）：</label>
-                        <div style="font-size: 0.9rem; color: #666; padding: 0.5rem; background-color: #f8f9fa; border-radius: 5px;">
-                            <p><i class="fas fa-info-circle"></i> 汇率仅供参考，实际汇率以银行成交价为准</p>
-                        </div>
-                    </div>
-                    
-                    <!-- 单位说明 -->
-                    <div class="converter-category" id="unitInfo">
-                        <h4>当前单位说明：</h4>
-                        <div class="converter-units" id="unitList">
-                            <!-- 单位说明会动态加载 -->
+                    <div class="input-group">
+                        <label>单位说明：</label>
+                        <div id="unitDescription" style="font-size: 0.9rem; color: #666; padding: 0.5rem; background-color: #f8f9fa; border-radius: 5px;">
+                            选择转换类型查看单位说明
                         </div>
                     </div>
                 </div>
             </div>
             
-            <!-- 在线画图卡片 -->
+            <!-- 在线画图板 -->
             <div class="tool-card">
                 <h3><i class="fas fa-paint-brush"></i> 在线画图板</h3>
-                <p>自由绘制图形、涂鸦和图表</p>
+                <p>自由绘制图形、涂鸦和图表 - 完全可用版本</p>
                 
                 <div class="drawing-container">
                     <div class="drawing-tools">
@@ -470,21 +605,21 @@
                         </button>
                     </div>
                     
-                    <div class="input-group">
+                    <div class="control-group">
                         <label>画笔设置：</label>
-                        <div style="display: flex; gap: 10px; align-items: center;">
+                        <div class="control-row">
                             <div style="flex: 1;">
-                                <label style="font-size: 0.9rem; margin-bottom: 0.2rem;">粗细：</label>
+                                <label style="font-size: 0.9rem; margin-bottom: 0.2rem;">粗细: <span id="brushSizeValue">3</span>px</label>
                                 <input type="range" id="brushSize" min="1" max="20" value="3" style="width: 100%;">
                             </div>
                             <div style="flex: 1;">
-                                <label style="font-size: 0.9rem; margin-bottom: 0.2rem;">不透明度：</label>
+                                <label style="font-size: 0.9rem; margin-bottom: 0.2rem;">不透明度: <span id="opacityValue">1.0</span></label>
                                 <input type="range" id="brushOpacity" min="0.1" max="1" step="0.1" value="1" style="width: 100%;">
                             </div>
                         </div>
                     </div>
                     
-                    <div class="input-group">
+                    <div class="control-group">
                         <label>颜色选择：</label>
                         <div class="color-palette">
                             <div class="color-option active" data-color="#000000" style="background-color: #000000;"></div>
@@ -506,159 +641,183 @@
                     
                     <div class="drawing-stats">
                         <span>坐标: (<span id="mouseX">0</span>, <span id="mouseY">0</span>)</span>
-                        <span>工具: <span id="currentTool">画笔</span></span>
-                        <span>颜色: <span id="currentColor">#000000</span></span>
+                        <span>工具: <span id="currentToolName">画笔</span></span>
+                        <span>颜色: <span id="currentColorName">#000000</span></span>
                     </div>
                     
                     <div class="tool-actions">
-                        <button onclick="clearDrawing()"><i class="fas fa-trash"></i> 清空画布</button>
-                        <button onclick="saveDrawing()" style="background-color: #4CAF50;"><i class="fas fa-download"></i> 保存图片</button>
-                        <button onclick="undoDrawing()" style="background-color: #2196F3;"><i class="fas fa-undo"></i> 撤销</button>
+                        <button onclick="clearDrawing()" class="clear-btn">
+                            <i class="fas fa-trash"></i> 清空画布
+                        </button>
+                        <button onclick="saveDrawing()" class="save-btn">
+                            <i class="fas fa-download"></i> 保存图片
+                        </button>
+                        <button onclick="undoDrawing()" class="undo-btn">
+                            <i class="fas fa-undo"></i> 撤销
+                        </button>
                     </div>
                 </div>
             </div>
             
-            <!-- C++ 编辑器卡片 -->
+            <!-- Base64编码/解码 -->
             <div class="tool-card">
-                <h3><i class="fab fa-cuttlefish"></i> C++ 代码编辑器辅助器</h3>
-                <p><strong>注意：</strong>静态网站无法直接编译运行C++代码。这是一个辅助编辑器，提供代码高亮、自动补全等功能</p>
+                <h3><i class="fas fa-lock"></i> Base64编码/解码</h3>
+                <p>将文本转换为Base64格式或从Base64解码回文本</p>
                 
-                <div class="editor-container">
-                    <div class="editor-header">
-                        <h4><i class="fas fa-code"></i> C++ Editor</h4>
-                        <div class="editor-toolbar">
-                            <button class="editor-btn" onclick="formatCode()" title="格式化代码">
-                                <i class="fas fa-indent"></i> 格式化
-                            </button>
-                            <button class="editor-btn" onclick="toggleLineNumbers()" title="显示/隐藏行号" id="lineNumberBtn">
-                                <i class="fas fa-list-ol"></i> 行号
-                            </button>
-                            <button class="editor-btn" onclick="commentSelection()" title="注释选中行">
-                                <i class="fas fa-comment"></i> 注释
-                            </button>
-                            <button class="editor-btn active" onclick="toggleTheme()" title="切换主题" id="themeBtn">
-                                <i class="fas fa-moon"></i> 暗色
-                            </button>
-                        </div>
-                    </div>
-                    <div class="input-group" style="margin-bottom: 0; position: relative;">
-                        <textarea id="cppEditor" class="code-editor" spellcheck="false" placeholder="输入C++代码...">#include &lt;iostream&gt;
+                <div class="input-group">
+                    <label for="base64Input">输入要编码/解码的文本：</label>
+                    <textarea id="base64Input" placeholder="请输入要编码或解码的文本...">Hello, welcome to the toolbox!</textarea>
+                </div>
+                
+                <div class="tool-actions">
+                    <button onclick="encodeBase64()">编码为Base64</button>
+                    <button onclick="decodeBase64()" class="special-btn">解码Base64</button>
+                </div>
+                
+                <div id="base64Result" class="result">
+                    结果将显示在这里
+                </div>
+            </div>
+            
+            <!-- 商品价格排序器 -->
+            <div class="tool-card">
+                <h3><i class="fas fa-sort-amount-down"></i> 商品价格排序器</h3>
+                <p>为购物网站、汽车网站等提取商品价格并进行排序</p>
+                
+                <div class="input-group">
+                    <label for="priceInput">输入商品价格列表（每行一个，格式：商品名 价格）：</label>
+                    <textarea id="priceInput" placeholder="示例：
+特斯拉 Model 3 289,900
+iPhone 16 Pro 8,999
+戴森吸尘器 3,299
+联想笔记本 6,499
+华为Mate 60 7,999
+奔驰 C级 358,000">特斯拉 Model 3 289,900
+iPhone 16 Pro 8,999
+戴森吸尘器 3,299
+联想笔记本 6,499
+华为Mate 60 7,999
+奔驰 C级 358,000</textarea>
+                </div>
+                
+                <div class="input-group">
+                    <label>排序方式：</label>
+                    <select id="sortOrder">
+                        <option value="asc">从低到高</option>
+                        <option value="desc">从高到低</option>
+                    </select>
+                </div>
+                
+                <button onclick="sortPrices()">开始排序</button>
+                
+                <div id="priceResult" class="result">
+                    排序结果将显示在这里
+                </div>
+            </div>
+            
+            <!-- C++代码编辑器 -->
+            <div class="tool-card">
+                <h3><i class="fas fa-code"></i> C++代码编辑器</h3>
+                <p>编写和格式化C++代码，支持语法高亮和自动缩进</p>
+                
+                <div class="input-group">
+                    <label for="codeInput">输入C++代码：</label>
+                    <textarea id="codeInput" class="code-editor" placeholder="#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    cout &lt;&lt; \"Hello, World!\" &lt;&lt; endl;
+    return 0;
+}">#include &lt;iostream&gt;
 #include &lt;vector&gt;
 #include &lt;string&gt;
 
 using namespace std;
 
-class Calculator {
-private:
-    int memory;
-public:
-    Calculator() : memory(0) {}
-    
-    int add(int a, int b) {
-        return a + b;
-    }
-    
-    int subtract(int a, int b) {
-        return a - b;
-    }
-    
-    int getMemory() {
-        return memory;
-    }
-    
-    void setMemory(int value) {
-        memory = value;
-    }
-};
-
 int main() {
-    cout &lt;&lt; "欢迎使用C++代码编辑器辅助器！" &lt;&lt; endl;
-    
-    Calculator calc;
-    int x = 10, y = 5;
-    
-    int sum = calc.add(x, y);
-    int diff = calc.subtract(x, y);
-    
-    cout &lt;&lt; x &lt;&lt; " + " &lt;&lt; y &lt;&lt; " = " &lt;&lt; sum &lt;&lt; endl;
-    cout &lt;&lt; x &lt;&lt; " - " &lt;&lt; y &lt;&lt; " = " &lt;&lt; diff &lt;&lt; endl;
-    
-    // 示例：使用vector
     vector&lt;string&gt; fruits = {"苹果", "香蕉", "橙子"};
-    cout &lt;&lt; "\n水果列表：" &lt;&lt; endl;
-    for (const auto&amp; fruit : fruits) {
-        cout &lt;&lt; "- " &lt;&lt; fruit &lt;&lt; endl;
+    cout &lt;&lt; "水果列表：" &lt;&lt; endl;
+    
+    for (int i = 0; i &lt; fruits.size(); i++) {
+        cout &lt;&lt; i+1 &lt;&lt; ". " &lt;&lt; fruits[i] &lt;&lt; endl;
     }
     
     return 0;
 }</textarea>
-                        <div id="suggestionBox" class="suggestion-box"></div>
-                    </div>
-                </div>
-                
-                <div class="editor-status">
-                    <span id="lineCount">行数: 1</span>
-                    <span id="charCount">字符: 0</span>
-                    <span id="cursorPos">行: 1, 列: 1</span>
                 </div>
                 
                 <div class="tool-actions">
-                    <button onclick="formatCode()"><i class="fas fa-indent"></i> 自动缩进</button>
-                    <button onclick="clearCode()" style="background-color: #f44336;"><i class="fas fa-trash"></i> 清空</button>
-                    <button onclick="saveCode()" style="background-color: #4CAF50;"><i class="fas fa-save"></i> 保存</button>
+                    <button onclick="formatCppCode()">格式化代码</button>
+                    <button onclick="clearCode()" class="clear-btn">清空</button>
+                    <button onclick="saveCppCode()" class="save-btn">保存</button>
                 </div>
                 
-                <div class="editor-features">
-                    <div class="feature-item">
-                        <i class="fas fa-check-circle"></i>
-                        <span>语法高亮</span>
-                    </div>
-                    <div class="feature-item">
-                        <i class="fas fa-bolt"></i>
-                        <span>自动缩进</span>
-                    </div>
-                    <div class="feature-item">
-                        <i class="fas fa-magic"></i>
-                        <span>代码补全</span>
-                    </div>
-                    <div class="feature-item">
-                        <i class="fas fa-search"></i>
-                        <span>括号匹配</span>
-                    </div>
-                </div>
-                
-                <div class="input-group" style="margin-top: 1rem;">
-                    <label>编辑器说明：</label>
-                    <div style="background-color: #f8f9fa; padding: 1rem; border-radius: 5px; font-size: 0.9rem;">
-                        <p><strong>可用快捷键：</strong></p>
-                        <ul style="margin-left: 1.5rem;">
-                            <li><code>Tab</code> - 缩进代码</li>
-                            <li><code>Shift+Tab</code> - 取消缩进</li>
-                            <li><code>Ctrl+/</code> - 注释/取消注释</li>
-                            <li><code>Ctrl+S</code> - 保存代码</li>
-                            <li><code>Ctrl+F</code> - 查找</li>
-                        </ul>
-                        <p style="margin-top: 0.5rem; color: #666;">
-                            <i class="fas fa-info-circle"></i> 这是一个纯前端编辑器，代码不会发送到服务器
-                        </p>
-                    </div>
+                <div class="editor-status">
+                    <span>行数: <span id="codeLineCount">1</span></span>
+                    <span>字符: <span id="codeCharCount">0</span></span>
                 </div>
             </div>
             
-            <!-- 其他工具卡片（可以根据需要添加） -->
+            <!-- 特殊字符表 -->
+            <div class="tool-card">
+                <h3><i class="fas fa-symbols"></i> 特殊字符表</h3>
+                <p>点击字符即可复制到剪贴板</p>
+                
+                <div class="input-group">
+                    <label>选择字符类别：</label>
+                    <select id="charCategory" onchange="updateCharTable()">
+                        <option value="math">数学符号</option>
+                        <option value="currency">货币符号</option>
+                        <option value="arrow">箭头符号</option>
+                        <option value="emoji">表情符号</option>
+                        <option value="tech">技术符号</option>
+                    </select>
+                </div>
+                
+                <div id="charTable" class="char-table"></div>
+                
+                <div class="input-group" style="margin-top: 1rem;">
+                    <label>已复制的字符：</label>
+                    <input type="text" id="copiedChar" readonly placeholder="点击上方字符进行复制">
+                </div>
+            </div>
             
+            <!-- 颜色选择器 -->
+            <div class="tool-card">
+                <h3><i class="fas fa-palette"></i> 颜色选择器</h3>
+                <p>选择颜色并获取HEX、RGB值</p>
+                
+                <div class="input-group">
+                    <label>选择颜色：</label>
+                    <input type="color" id="colorPicker" value="#FFB6C1">
+                </div>
+                
+                <div class="input-group">
+                    <label>HEX值：</label>
+                    <input type="text" id="hexValue" readonly>
+                </div>
+                
+                <div class="input-group">
+                    <label>RGB值：</label>
+                    <input type="text" id="rgbValue" readonly>
+                </div>
+                
+                <div class="input-group">
+                    <label>颜色预览：</label>
+                    <div id="colorPreview" style="width: 100%; height: 60px; border-radius: 8px; border: 1px solid #ddd;"></div>
+                </div>
+            </div>
         </div>
         
         <footer>
-            <p>多功能工具箱 © 2023 | 包含实时时间显示、单位转换、画图、代码编辑等多种实用工具</p>
+            <p>多功能工具箱 © 2023 | 包含实时时间、单位转换、画图、代码编辑、Base64、价格排序等多种实用工具</p>
         </footer>
     </div>
-    
+
     <script>
         // ==================== 实时时间功能 ====================
         let is24Hour = true;
         
-        // 更新时间显示
         function updateTime() {
             const now = new Date();
             
@@ -696,7 +855,6 @@ int main() {
             document.getElementById('liveDate').textContent = `${year}年${month}月${day}日 ${weekday}`;
         }
         
-        // 切换12/24小时制
         function toggle24Hour() {
             is24Hour = !is24Hour;
             const btn = document.getElementById('timeFormatBtn');
@@ -706,7 +864,6 @@ int main() {
             updateTime();
         }
         
-        // 复制当前时间
         function copyTime() {
             const now = new Date();
             const hours = String(now.getHours()).padStart(2, '0');
@@ -720,10 +877,8 @@ int main() {
         }
         
         // ==================== 单位转换功能 ====================
-        // 定义各种单位转换数据
         const conversionData = {
             currency: {
-                name: "货币",
                 units: [
                     { id: "CNY", name: "人民币(CNY)", rate: 1 },
                     { id: "USD", name: "美元(USD)", rate: 0.14 },
@@ -731,13 +886,11 @@ int main() {
                     { id: "JPY", name: "日元(JPY)", rate: 20.5 },
                     { id: "GBP", name: "英镑(GBP)", rate: 0.11 },
                     { id: "HKD", name: "港元(HKD)", rate: 1.09 },
-                    { id: "KRW", name: "韩元(KRW)", rate: 180 },
-                    { id: "RUB", name: "卢布(RUB)", rate: 12.5 }
+                    { id: "KRW", name: "韩元(KRW)", rate: 180 }
                 ],
                 description: "人民币为基准货币，其他货币基于示例汇率"
             },
             length: {
-                name: "长度",
                 units: [
                     { id: "mm", name: "毫米(mm)", rate: 0.001 },
                     { id: "cm", name: "厘米(cm)", rate: 0.01 },
@@ -745,53 +898,42 @@ int main() {
                     { id: "km", name: "千米(km)", rate: 1000 },
                     { id: "inch", name: "英寸(inch)", rate: 0.0254 },
                     { id: "foot", name: "英尺(ft)", rate: 0.3048 },
-                    { id: "yard", name: "码(yd)", rate: 0.9144 },
                     { id: "mile", name: "英里(mile)", rate: 1609.34 }
                 ],
                 description: "以米(m)为基准单位"
             },
             area: {
-                name: "面积",
                 units: [
                     { id: "mm2", name: "平方毫米(mm²)", rate: 0.000001 },
                     { id: "cm2", name: "平方厘米(cm²)", rate: 0.0001 },
                     { id: "m2", name: "平方米(m²)", rate: 1 },
                     { id: "km2", name: "平方千米(km²)", rate: 1000000 },
                     { id: "hectare", name: "公顷(ha)", rate: 10000 },
-                    { id: "acre", name: "英亩(acre)", rate: 4046.86 },
-                    { id: "mu", name: "亩(mu)", rate: 666.667 }
+                    { id: "acre", name: "英亩(acre)", rate: 4046.86 }
                 ],
                 description: "以平方米(m²)为基准单位"
             },
             volume: {
-                name: "体积",
                 units: [
                     { id: "ml", name: "毫升(ml)", rate: 0.001 },
-                    { id: "cl", name: "厘升(cl)", rate: 0.01 },
                     { id: "l", name: "升(L)", rate: 1 },
                     { id: "m3", name: "立方米(m³)", rate: 1000 },
-                    { id: "cm3", name: "立方厘米(cm³)", rate: 0.001 },
-                    { id: "gallon", name: "加仑(gal)", rate: 3.78541 },
-                    { id: "ounce", name: "液量盎司(fl oz)", rate: 0.0295735 }
+                    { id: "gallon", name: "加仑(gal)", rate: 3.78541 }
                 ],
                 description: "以升(L)为基准单位"
             },
             time: {
-                name: "时间",
                 units: [
                     { id: "ms", name: "毫秒(ms)", rate: 0.001 },
                     { id: "s", name: "秒(s)", rate: 1 },
                     { id: "min", name: "分钟(min)", rate: 60 },
                     { id: "h", name: "小时(h)", rate: 3600 },
                     { id: "d", name: "天(day)", rate: 86400 },
-                    { id: "week", name: "周(week)", rate: 604800 },
-                    { id: "month", name: "月(month)", rate: 2592000 }, // 30天
-                    { id: "year", name: "年(year)", rate: 31536000 } // 365天
+                    { id: "week", name: "周(week)", rate: 604800 }
                 ],
                 description: "以秒(s)为基准单位"
             },
             temperature: {
-                name: "温度",
                 units: [
                     { id: "C", name: "摄氏度(°C)", isTemp: true },
                     { id: "F", name: "华氏度(°F)", isTemp: true },
@@ -800,55 +942,38 @@ int main() {
                 description: "温度单位需要特殊转换公式"
             },
             weight: {
-                name: "重量",
                 units: [
                     { id: "mg", name: "毫克(mg)", rate: 0.000001 },
                     { id: "g", name: "克(g)", rate: 0.001 },
                     { id: "kg", name: "千克(kg)", rate: 1 },
                     { id: "ton", name: "吨(t)", rate: 1000 },
-                    { id: "ounce", name: "盎司(oz)", rate: 0.0283495 },
-                    { id: "pound", name: "磅(lb)", rate: 0.453592 },
-                    { id: "jin", name: "斤(jin)", rate: 0.5 }
+                    { id: "pound", name: "磅(lb)", rate: 0.453592 }
                 ],
                 description: "以千克(kg)为基准单位"
             },
             speed: {
-                name: "速度",
                 units: [
                     { id: "m_s", name: "米/秒(m/s)", rate: 1 },
                     { id: "km_h", name: "千米/时(km/h)", rate: 0.277778 },
-                    { id: "mph", name: "英里/时(mph)", rate: 0.44704 },
-                    { id: "knot", name: "节(knot)", rate: 0.514444 },
-                    { id: "c", name: "光速(c)", rate: 299792458 }
+                    { id: "mph", name: "英里/时(mph)", rate: 0.44704 }
                 ],
                 description: "以米/秒(m/s)为基准单位"
             },
             data: {
-                name: "数据存储",
                 units: [
                     { id: "bit", name: "比特(bit)", rate: 0.125 },
                     { id: "byte", name: "字节(Byte)", rate: 1 },
                     { id: "kb", name: "千字节(KB)", rate: 1024 },
                     { id: "mb", name: "兆字节(MB)", rate: 1048576 },
-                    { id: "gb", name: "千兆字节(GB)", rate: 1073741824 },
-                    { id: "tb", name: "太字节(TB)", rate: 1099511627776 },
-                    { id: "pb", name: "拍字节(PB)", rate: 1125899906842624 }
+                    { id: "gb", name: "千兆字节(GB)", rate: 1073741824 }
                 ],
                 description: "以字节(Byte)为基准单位"
             }
         };
         
-        // 初始化单位转换器
-        function initConverter() {
-            changeConverterType();
-        }
-        
-        // 切换转换类型
         function changeConverterType() {
             const type = document.getElementById('converterType').value;
             const data = conversionData[type];
-            
-            // 更新单位选择框
             const fromUnit = document.getElementById('fromUnit');
             const toUnit = document.getElementById('toUnit');
             
@@ -867,7 +992,6 @@ int main() {
                 toUnit.appendChild(option2);
             });
             
-            // 设置默认单位
             if (type === 'currency') {
                 fromUnit.value = 'CNY';
                 toUnit.value = 'USD';
@@ -875,45 +999,14 @@ int main() {
                 fromUnit.value = 'C';
                 toUnit.value = 'F';
             } else {
-                fromUnit.value = data.units[2].id; // 通常第三个是基准单位
-                toUnit.value = data.units[0].id;   // 第一个单位
+                fromUnit.value = data.units[2]?.id || data.units[0].id;
+                toUnit.value = data.units[0].id;
             }
             
-            // 更新单位说明
-            updateUnitInfo(type);
-            
-            // 显示/隐藏货币信息
-            const currencyInfo = document.getElementById('currencyInfo');
-            currencyInfo.style.display = type === 'currency' ? 'block' : 'none';
-            
-            // 执行一次转换
+            document.getElementById('unitDescription').textContent = data.description;
             convertUnits();
         }
         
-        // 更新单位说明
-        function updateUnitInfo(type) {
-            const data = conversionData[type];
-            const unitList = document.getElementById('unitList');
-            
-            unitList.innerHTML = `
-                <div class="converter-unit">
-                    <strong>转换类型:</strong> ${data.name}
-                </div>
-                <div class="converter-unit">
-                    <strong>说明:</strong> ${data.description}
-                </div>
-            `;
-            
-            // 添加单位列表
-            data.units.forEach(unit => {
-                const unitDiv = document.createElement('div');
-                unitDiv.className = 'converter-unit';
-                unitDiv.innerHTML = `<strong>${unit.name}:</strong> ${unit.isTemp ? '温度单位' : `1${unit.id} = ${unit.rate}基准单位`}`;
-                unitList.appendChild(unitDiv);
-            });
-        }
-        
-        // 执行单位转换
         function convertUnits() {
             const type = document.getElementById('converterType').value;
             const fromValue = parseFloat(document.getElementById('fromValue').value) || 0;
@@ -921,7 +1014,6 @@ int main() {
             const toUnit = document.getElementById('toUnit').value;
             const data = conversionData[type];
             
-            // 查找单位
             const fromUnitData = data.units.find(u => u.id === fromUnit);
             const toUnitData = data.units.find(u => u.id === toUnit);
             
@@ -932,62 +1024,45 @@ int main() {
             
             let result;
             
-            // 特殊处理温度转换
             if (type === 'temperature') {
                 result = convertTemperature(fromValue, fromUnit, toUnit);
             } else {
-                // 普通单位转换
                 const valueInBase = fromValue * fromUnitData.rate;
                 result = valueInBase / toUnitData.rate;
             }
             
-            // 格式化结果
             const formattedResult = formatNumber(result);
             const formattedFromValue = formatNumber(fromValue);
             
-            // 显示结果
             document.getElementById('conversionResult').innerHTML = `
                 <div style="font-size: 1.2rem; font-weight: bold; color: #D81B60; margin-bottom: 0.5rem;">
                     ${formattedFromValue} ${fromUnitData.name} = ${formattedResult} ${toUnitData.name}
                 </div>
                 <div style="color: #666; font-size: 0.9rem;">
-                    <i class="fas fa-info-circle"></i> ${data.name}转换完成
+                    <i class="fas fa-info-circle"></i> ${conversionData[type].description}
                 </div>
             `;
         }
         
-        // 温度转换函数
         function convertTemperature(value, fromUnit, toUnit) {
             if (fromUnit === toUnit) return value;
             
-            // 先转换为摄氏度
             let celsius;
             switch (fromUnit) {
-                case 'C':
-                    celsius = value;
-                    break;
-                case 'F':
-                    celsius = (value - 32) * 5/9;
-                    break;
-                case 'K':
-                    celsius = value - 273.15;
-                    break;
+                case 'C': celsius = value; break;
+                case 'F': celsius = (value - 32) * 5/9; break;
+                case 'K': celsius = value - 273.15; break;
             }
             
-            // 从摄氏度转换到目标单位
             switch (toUnit) {
-                case 'C':
-                    return celsius;
-                case 'F':
-                    return (celsius * 9/5) + 32;
-                case 'K':
-                    return celsius + 273.15;
+                case 'C': return celsius;
+                case 'F': return (celsius * 9/5) + 32;
+                case 'K': return celsius + 273.15;
             }
             
             return 0;
         }
         
-        // 格式化数字
         function formatNumber(num) {
             if (Math.abs(num) < 0.000001) {
                 return num.toExponential(6);
@@ -1006,7 +1081,7 @@ int main() {
             }
         }
         
-        // ==================== 在线画图功能 ====================
+        // ==================== 画图板功能 ====================
         let canvas, ctx;
         let isDrawing = false;
         let currentTool = 'pencil';
@@ -1023,30 +1098,35 @@ int main() {
             ctx = canvas.getContext('2d');
             
             // 设置画布大小
-            canvas.width = canvas.offsetWidth;
-            canvas.height = canvas.offsetHeight;
+            resizeCanvas();
             
-            // 初始绘制
+            // 清空画布
             clearCanvas();
             
-            // 事件监听
-            canvas.addEventListener('mousedown', startDrawing);
-            canvas.addEventListener('mousemove', draw);
-            canvas.addEventListener('mouseup', stopDrawing);
-            canvas.addEventListener('mouseout', stopDrawing);
+            // 设置事件监听
+            setupEventListeners();
             
-            // 触摸事件支持
-            canvas.addEventListener('touchstart', handleTouchStart);
-            canvas.addEventListener('touchmove', handleTouchMove);
-            canvas.addEventListener('touchend', handleTouchEnd);
+            // 更新控制显示
+            updateControls();
             
+            // 保存初始状态
+            saveToHistory();
+        }
+        
+        function resizeCanvas() {
+            const container = canvas.parentElement;
+            canvas.width = container.clientWidth;
+            canvas.height = container.clientHeight;
+        }
+        
+        function setupEventListeners() {
             // 工具选择
             document.querySelectorAll('.drawing-tool').forEach(tool => {
                 tool.addEventListener('click', function() {
                     document.querySelectorAll('.drawing-tool').forEach(t => t.classList.remove('active'));
                     this.classList.add('active');
                     currentTool = this.getAttribute('data-tool');
-                    document.getElementById('currentTool').textContent = getToolName(currentTool);
+                    updateToolName();
                 });
             });
             
@@ -1056,43 +1136,657 @@ int main() {
                     document.querySelectorAll('.color-option').forEach(c => c.classList.remove('active'));
                     this.classList.add('active');
                     currentColor = this.getAttribute('data-color');
-                    document.getElementById('currentColor').textContent = currentColor;
+                    document.getElementById('currentColorName').textContent = currentColor;
                 });
             });
             
             // 画笔设置
             document.getElementById('brushSize').addEventListener('input', function() {
                 brushSize = parseInt(this.value);
+                document.getElementById('brushSizeValue').textContent = brushSize;
             });
             
             document.getElementById('brushOpacity').addEventListener('input', function() {
                 brushOpacity = parseFloat(this.value);
+                document.getElementById('opacityValue').textContent = brushOpacity.toFixed(1);
+            });
+            
+            // 鼠标事件
+            canvas.addEventListener('mousedown', startDrawing);
+            canvas.addEventListener('mousemove', draw);
+            canvas.addEventListener('mouseup', stopDrawing);
+            canvas.addEventListener('mouseout', stopDrawing);
+            
+            // 触摸事件
+            canvas.addEventListener('touchstart', handleTouchStart);
+            canvas.addEventListener('touchmove', handleTouchMove);
+            canvas.addEventListener('touchend', handleTouchEnd);
+            
+            // 窗口大小变化
+            window.addEventListener('resize', function() {
+                resizeCanvas();
+                redrawFromHistory();
             });
             
             // 鼠标位置追踪
             canvas.addEventListener('mousemove', function(e) {
                 const rect = canvas.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                document.getElementById('mouseX').textContent = Math.round(x);
-                document.getElementById('mouseY').textContent = Math.round(y);
-            });
-            
-            // 窗口大小变化时调整画布
-            window.addEventListener('resize', function() {
-                canvas.width = canvas.offsetWidth;
-                canvas.height = canvas.offsetHeight;
-                redrawFromHistory();
+                const x = Math.round(e.clientX - rect.left);
+                const y = Math.round(e.clientY - rect.top);
+                document.getElementById('mouseX').textContent = x;
+                document.getElementById('mouseY').textContent = y;
             });
         }
         
-        // 画图相关函数（同之前代码）
-        // 这里省略了画图的具体实现，以保持代码简洁
-        // 完整的画图功能实现参考之前的代码
+        function updateToolName() {
+            const toolNames = {
+                'pencil': '画笔',
+                'line': '直线',
+                'rectangle': '矩形',
+                'circle': '圆形',
+                'text': '文本',
+                'eraser': '橡皮擦'
+            };
+            document.getElementById('currentToolName').textContent = toolNames[currentTool] || currentTool;
+        }
         
-        // ==================== C++ 编辑器功能 ====================
-        // 这里省略了C++编辑器的具体实现，以保持代码简洁
-        // 完整的C++编辑器功能实现参考之前的代码
+        function updateControls() {
+            document.getElementById('brushSizeValue').textContent = brushSize;
+            document.getElementById('opacityValue').textContent = brushOpacity.toFixed(1);
+            document.getElementById('currentColorName').textContent = currentColor;
+        }
+        
+        function getMousePosition(e) {
+            const rect = canvas.getBoundingClientRect();
+            let x, y;
+            
+            if (e.type.includes('touch')) {
+                x = e.touches[0].clientX - rect.left;
+                y = e.touches[0].clientY - rect.top;
+            } else {
+                x = e.clientX - rect.left;
+                y = e.clientY - rect.top;
+            }
+            
+            return { x, y };
+        }
+        
+        function startDrawing(e) {
+            e.preventDefault();
+            isDrawing = true;
+            const pos = getMousePosition(e);
+            startX = pos.x;
+            startY = pos.y;
+            lastX = startX;
+            lastY = startY;
+            
+            if (currentTool === 'text') {
+                addText(startX, startY);
+                isDrawing = false;
+            } else if (currentTool !== 'pencil' && currentTool !== 'eraser') {
+                saveToHistory();
+            }
+            
+            ctx.beginPath();
+        }
+        
+        function draw(e) {
+            if (!isDrawing) return;
+            
+            e.preventDefault();
+            const pos = getMousePosition(e);
+            const x = pos.x;
+            const y = pos.y;
+            
+            ctx.globalAlpha = brushOpacity;
+            ctx.lineWidth = brushSize;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            
+            switch (currentTool) {
+                case 'pencil':
+                    drawPencil(x, y);
+                    break;
+                case 'line':
+                    drawLinePreview(startX, startY, x, y);
+                    break;
+                case 'rectangle':
+                    drawRectanglePreview(startX, startY, x, y);
+                    break;
+                case 'circle':
+                    drawCirclePreview(startX, startY, x, y);
+                    break;
+                case 'eraser':
+                    drawEraser(x, y);
+                    break;
+            }
+            
+            lastX = x;
+            lastY = y;
+        }
+        
+        function stopDrawing() {
+            if (!isDrawing) return;
+            isDrawing = false;
+            
+            if (currentTool === 'line' || currentTool === 'rectangle' || currentTool === 'circle') {
+                const endX = lastX;
+                const endY = lastY;
+                
+                // 清除画布并从历史记录恢复
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                if (historyIndex >= 0) {
+                    const img = new Image();
+                    img.onload = function() {
+                        ctx.drawImage(img, 0, 0);
+                        
+                        ctx.globalAlpha = brushOpacity;
+                        ctx.lineWidth = brushSize;
+                        
+                        switch (currentTool) {
+                            case 'line':
+                                drawFinalLine(startX, startY, endX, endY);
+                                break;
+                            case 'rectangle':
+                                drawFinalRectangle(startX, startY, endX, endY);
+                                break;
+                            case 'circle':
+                                drawFinalCircle(startX, startY, endX, endY);
+                                break;
+                        }
+                        
+                        saveToHistory();
+                    };
+                    img.src = drawingHistory[historyIndex];
+                }
+            } else if (currentTool === 'pencil' || currentTool === 'eraser') {
+                saveToHistory();
+            }
+        }
+        
+        function drawPencil(x, y) {
+            ctx.beginPath();
+            ctx.moveTo(lastX, lastY);
+            ctx.lineTo(x, y);
+            ctx.strokeStyle = currentColor;
+            ctx.stroke();
+        }
+        
+        function drawLinePreview(x1, y1, x2, y2) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            if (historyIndex >= 0) {
+                const img = new Image();
+                img.onload = function() {
+                    ctx.drawImage(img, 0, 0);
+                    
+                    ctx.beginPath();
+                    ctx.setLineDash([5, 5]);
+                    ctx.moveTo(x1, y1);
+                    ctx.lineTo(x2, y2);
+                    ctx.strokeStyle = currentColor;
+                    ctx.stroke();
+                    ctx.setLineDash([]);
+                };
+                img.src = drawingHistory[historyIndex];
+            }
+        }
+        
+        function drawFinalLine(x1, y1, x2, y2) {
+            ctx.beginPath();
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(x2, y2);
+            ctx.strokeStyle = currentColor;
+            ctx.stroke();
+        }
+        
+        function drawRectanglePreview(x1, y1, x2, y2) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            if (historyIndex >= 0) {
+                const img = new Image();
+                img.onload = function() {
+                    ctx.drawImage(img, 0, 0);
+                    
+                    ctx.beginPath();
+                    ctx.setLineDash([5, 5]);
+                    ctx.rect(x1, y1, x2 - x1, y2 - y1);
+                    ctx.strokeStyle = currentColor;
+                    ctx.stroke();
+                    ctx.setLineDash([]);
+                };
+                img.src = drawingHistory[historyIndex];
+            }
+        }
+        
+        function drawFinalRectangle(x1, y1, x2, y2) {
+            ctx.beginPath();
+            ctx.rect(x1, y1, x2 - x1, y2 - y1);
+            ctx.strokeStyle = currentColor;
+            ctx.stroke();
+        }
+        
+        function drawCirclePreview(x1, y1, x2, y2) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            if (historyIndex >= 0) {
+                const img = new Image();
+                img.onload = function() {
+                    ctx.drawImage(img, 0, 0);
+                    
+                    const radius = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+                    
+                    ctx.beginPath();
+                    ctx.setLineDash([5, 5]);
+                    ctx.arc(x1, y1, radius, 0, Math.PI * 2);
+                    ctx.strokeStyle = currentColor;
+                    ctx.stroke();
+                    ctx.setLineDash([]);
+                };
+                img.src = drawingHistory[historyIndex];
+            }
+        }
+        
+        function drawFinalCircle(x1, y1, x2, y2) {
+            const radius = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+            
+            ctx.beginPath();
+            ctx.arc(x1, y1, radius, 0, Math.PI * 2);
+            ctx.strokeStyle = currentColor;
+            ctx.stroke();
+        }
+        
+        function drawEraser(x, y) {
+            ctx.beginPath();
+            ctx.arc(x, y, brushSize, 0, Math.PI * 2);
+            ctx.fillStyle = '#ffffff';
+            ctx.fill();
+        }
+        
+        function addText(x, y) {
+            const text = prompt('请输入文本内容:', '文本');
+            if (text && text.trim()) {
+                saveToHistory();
+                
+                ctx.globalAlpha = brushOpacity;
+                ctx.fillStyle = currentColor;
+                ctx.font = `${brushSize * 5}px Arial`;
+                ctx.fillText(text, x, y);
+                
+                saveToHistory();
+            }
+        }
+        
+        function clearCanvas() {
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+        
+        function clearDrawing() {
+            if (confirm('确定要清空整个画布吗？')) {
+                clearCanvas();
+                drawingHistory = [];
+                historyIndex = -1;
+                saveToHistory();
+            }
+        }
+        
+        function saveDrawing() {
+            const dataURL = canvas.toDataURL('image/png');
+            const link = document.createElement('a');
+            link.href = dataURL;
+            link.download = '我的绘画.png';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            alert('图片已保存为"我的绘画.png"');
+        }
+        
+        function undoDrawing() {
+            if (historyIndex > 0) {
+                historyIndex--;
+                const img = new Image();
+                img.onload = function() {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    ctx.drawImage(img, 0, 0);
+                };
+                img.src = drawingHistory[historyIndex];
+            } else if (historyIndex === 0) {
+                clearCanvas();
+                historyIndex = -1;
+            }
+        }
+        
+        function saveToHistory() {
+            const dataURL = canvas.toDataURL();
+            drawingHistory = drawingHistory.slice(0, historyIndex + 1);
+            drawingHistory.push(dataURL);
+            historyIndex = drawingHistory.length - 1;
+            
+            if (drawingHistory.length > 20) {
+                drawingHistory.shift();
+                historyIndex--;
+            }
+        }
+        
+        function redrawFromHistory() {
+            if (historyIndex >= 0) {
+                const img = new Image();
+                img.onload = function() {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    ctx.drawImage(img, 0, 0);
+                };
+                img.src = drawingHistory[historyIndex];
+            } else {
+                clearCanvas();
+            }
+        }
+        
+        function handleTouchStart(e) {
+            e.preventDefault();
+            const touch = e.touches[0];
+            const mouseEvent = new MouseEvent('mousedown', {
+                clientX: touch.clientX,
+                clientY: touch.clientY
+            });
+            canvas.dispatchEvent(mouseEvent);
+        }
+        
+        function handleTouchMove(e) {
+            e.preventDefault();
+            const touch = e.touches[0];
+            const mouseEvent = new MouseEvent('mousemove', {
+                clientX: touch.clientX,
+                clientY: touch.clientY
+            });
+            canvas.dispatchEvent(mouseEvent);
+        }
+        
+        function handleTouchEnd(e) {
+            e.preventDefault();
+            const mouseEvent = new MouseEvent('mouseup', {});
+            canvas.dispatchEvent(mouseEvent);
+        }
+        
+        // ==================== Base64编码/解码 ====================
+        function encodeBase64() {
+            const input = document.getElementById('base64Input').value;
+            if (!input.trim()) {
+                document.getElementById('base64Result').innerHTML = '<div style="color: #f44336;">请输入要编码的文本</div>';
+                return;
+            }
+            try {
+                const encoded = btoa(unescape(encodeURIComponent(input)));
+                document.getElementById('base64Result').innerHTML = `
+                    <div style="margin-bottom: 10px;">
+                        <strong>编码结果（Base64）：</strong>
+                    </div>
+                    <div style="background-color: white; padding: 10px; border-radius: 5px; border: 1px solid #ddd; word-break: break-all;">
+                        ${encoded}
+                    </div>
+                    <div style="margin-top: 10px; font-size: 0.9rem; color: #666;">
+                        <i class="fas fa-info-circle"></i> 编码完成
+                    </div>
+                `;
+            } catch (error) {
+                document.getElementById('base64Result').innerHTML = `<div style="color: #f44336;">编码失败：${error.message}</div>`;
+            }
+        }
+        
+        function decodeBase64() {
+            const input = document.getElementById('base64Input').value.trim();
+            if (!input) {
+                document.getElementById('base64Result').innerHTML = '<div style="color: #f44336;">请输入要解码的Base64字符串</div>';
+                return;
+            }
+            try {
+                const decoded = decodeURIComponent(escape(atob(input)));
+                document.getElementById('base64Result').innerHTML = `
+                    <div style="margin-bottom: 10px;">
+                        <strong>解码结果：</strong>
+                    </div>
+                    <div style="background-color: white; padding: 10px; border-radius: 5px; border: 1px solid #ddd; word-break: break-all;">
+                        ${decoded}
+                    </div>
+                    <div style="margin-top: 10px; font-size: 0.9rem; color: #666;">
+                        <i class="fas fa-info-circle"></i> 解码完成
+                    </div>
+                `;
+            } catch (error) {
+                document.getElementById('base64Result').innerHTML = `<div style="color: #f44336;">解码失败：无效的Base64字符串</div>`;
+            }
+        }
+        
+        // ==================== 商品价格排序器 ====================
+        function sortPrices() {
+            const input = document.getElementById('priceInput').value;
+            const sortOrder = document.getElementById('sortOrder').value;
+            const lines = input.split('\n').filter(line => line.trim() !== '');
+            const priceData = [];
+            
+            lines.forEach(line => {
+                const priceInfo = extractPrice(line);
+                if (priceInfo) {
+                    priceData.push({
+                        name: priceInfo.name,
+                        price: priceInfo.price,
+                        originalLine: line.trim()
+                    });
+                }
+            });
+            
+            if (sortOrder === 'asc') {
+                priceData.sort((a, b) => a.price - b.price);
+            } else {
+                priceData.sort((a, b) => b.price - a.price);
+            }
+            
+            let resultHTML = `<h4>排序结果（${sortOrder === 'asc' ? '从低到高' : '从高到低'}）：</h4>`;
+            if (priceData.length === 0) {
+                resultHTML += '<p style="color: #f44336;">未找到有效的价格数据</p>';
+                resultHTML += '<p style="color: #666; font-size: 0.9rem;">建议格式: 商品名称 价格 (如: 特斯拉 Model 3 289,900)</p>';
+            } else {
+                resultHTML += '<ul class="price-list">';
+                priceData.forEach((item, index) => {
+                    const formattedPrice = item.price.toLocaleString('zh-CN');
+                    resultHTML += `
+                        <li class="price-item ${index < 3 ? 'sorted' : ''}">
+                            <span>${index + 1}. ${item.name}</span>
+                            <strong>¥${formattedPrice}</strong>
+                        </li>`;
+                });
+                resultHTML += '</ul>';
+                resultHTML += `<p style="color: #666; font-size: 0.9rem; margin-top: 1rem;">成功解析 ${priceData.length} 个商品</p>`;
+            }
+            
+            document.getElementById('priceResult').innerHTML = resultHTML;
+        }
+        
+        function extractPrice(line) {
+            const numberPattern = /\d[\d,]*\.?\d*/g;
+            const matches = line.match(numberPattern);
+            if (!matches || matches.length === 0) return null;
+            
+            const candidates = matches.map((match, index) => {
+                let score = 0;
+                const priceValue = parseFloat(match.replace(/,/g, ''));
+                if (match.includes(',')) score += 30;
+                if (priceValue > 100) score += 20;
+                if (priceValue > 1000) score += 10;
+                if (priceValue > 10000) score += 10;
+                
+                const position = line.lastIndexOf(match);
+                const distanceFromEnd = line.length - (position + match.length);
+                if (distanceFromEnd < 5) score += 25;
+                
+                const beforePrice = line.substring(0, position).trim();
+                if (beforePrice.endsWith('¥') || beforePrice.endsWith('$') || 
+                    beforePrice.endsWith('€') || beforePrice.endsWith('£')) {
+                    score += 40;
+                }
+                
+                const lowerBefore = beforePrice.toLowerCase();
+                if (lowerBefore.includes('价格') || lowerBefore.includes('售价') || 
+                    lowerBefore.includes('报价') || beforePrice.endsWith('元') ||
+                    lowerBefore.includes('刀') || lowerBefore.includes('$')) {
+                    score += 15;
+                }
+                
+                return {
+                    match: match,
+                    position: position,
+                    score: score,
+                    value: priceValue
+                };
+            });
+            
+            candidates.sort((a, b) => b.score - a.score);
+            const bestCandidate = candidates[0];
+            if (bestCandidate.score < 30) return null;
+            
+            const priceStart = bestCandidate.position;
+            let itemName = line.substring(0, priceStart).trim();
+            itemName = itemName.replace(/[¥$€£]?\s*[:：]?\s*$/g, '');
+            
+            return {
+                name: itemName || '未命名商品',
+                price: bestCandidate.value
+            };
+        }
+        
+        // ==================== C++代码编辑器 ====================
+        function formatCppCode() {
+            const codeInput = document.getElementById('codeInput');
+            let code = codeInput.value;
+            
+            const lines = code.split('\n');
+            let indentLevel = 0;
+            const formattedLines = [];
+            
+            for (let i = 0; i < lines.length; i++) {
+                let line = lines[i].trimEnd();
+                const trimmedLine = line.trim();
+                
+                if (trimmedLine.startsWith('}') || trimmedLine.startsWith('} else') || 
+                    trimmedLine.endsWith('break;') || trimmedLine.endsWith('continue;') ||
+                    trimmedLine.endsWith('return;')) {
+                    indentLevel = Math.max(0, indentLevel - 1);
+                }
+                
+                const indent = '    '.repeat(indentLevel);
+                line = indent + line.trimStart();
+                formattedLines.push(line);
+                
+                if (trimmedLine.endsWith('{') || trimmedLine.startsWith('class') || 
+                    trimmedLine.startsWith('struct') || trimmedLine.startsWith('namespace') ||
+                    trimmedLine.startsWith('public:') || trimmedLine.startsWith('private:') ||
+                    trimmedLine.startsWith('protected:') || (trimmedLine.startsWith('if') && !trimmedLine.includes('{')) ||
+                    (trimmedLine.startsWith('for') && !trimmedLine.includes('{')) ||
+                    (trimmedLine.startsWith('while') && !trimmedLine.includes('{')) ||
+                    trimmedLine.startsWith('else')) {
+                    indentLevel++;
+                }
+                
+                if (trimmedLine.startsWith('case') || trimmedLine.startsWith('default:')) {
+                    indentLevel = Math.max(1, indentLevel);
+                }
+            }
+            
+            codeInput.value = formattedLines.join('\n');
+            updateCodeStats();
+            alert('代码已格式化！');
+        }
+        
+        function clearCode() {
+            if (confirm('确定要清空所有代码吗？')) {
+                document.getElementById('codeInput').value = '';
+                updateCodeStats();
+            }
+        }
+        
+        function saveCppCode() {
+            const code = document.getElementById('codeInput').value;
+            const blob = new Blob([code], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'code.cpp';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            alert('代码已保存为 code.cpp');
+        }
+        
+        function updateCodeStats() {
+            const code = document.getElementById('codeInput').value;
+            const lines = code.split('\n').length;
+            const chars = code.length;
+            
+            document.getElementById('codeLineCount').textContent = lines;
+            document.getElementById('codeCharCount').textContent = chars;
+        }
+        
+        // ==================== 特殊字符表 ====================
+        const charData = {
+            math: ['∑', '∫', '∏', '√', '∞', '≠', '≈', '≤', '≥', '±', '×', '÷', '∂', '∆', '∇', '∅', '∈', '∉', '∩', '∪', '⊂', '⊃', '⊆', '⊇', '∧', '∨', '∀', '∃', '∴', '∵'],
+            currency: ['$', '€', '£', '¥', '¢', '₩', '₹', '₽', '₿', '₺', '₴', '₸', '₮', '₦', '₱', '฿', '៛', '₫', '₭', '₲', '₵', '₡', '₢', '₤', '₥', '₧', '₨', '₪'],
+            arrow: ['←', '→', '↑', '↓', '↔', '↕', '⇄', '⇅', '⇆', '⇇', '⇈', '⇉', '⇊', '↶', '↷', '↺', '↻', '↰', '↱', '↲', '↳', '↵', '↴', '↵', '↩', '↪', '↫', '↬', '↭', '↮'],
+            emoji: ['😀', '😂', '🤣', '😊', '😍', '🥰', '😎', '🤩', '🥳', '😜', '🤪', '😇', '🥺', '😢', '😭', '😡', '🤬', '🤯', '🥶', '😱', '🤔', '😴', '🥱', '😈', '👻', '💀', '👽', '🤖', '💩', '🎃'],
+            tech: ['⌘', '⌥', '⌃', '⇧', '⇪', '⌫', '⌦', '↩', '⏎', '⎋', '⇥', '⏏', '⏭', '⏮', '⏯', '⏹', '⏺', '⏏', '⏩', '⏪', '⏫', '⏬', '◀', '▶', '▲', '▼', '◆', '■', '○', '●']
+        };
+        
+        function updateCharTable() {
+            const category = document.getElementById('charCategory').value;
+            const chars = charData[category] || [];
+            const charTable = document.getElementById('charTable');
+            charTable.innerHTML = '';
+            
+            chars.forEach(char => {
+                const charItem = document.createElement('div');
+                charItem.className = 'char-item';
+                charItem.textContent = char;
+                charItem.title = `点击复制: ${char}`;
+                charItem.onclick = () => {
+                    navigator.clipboard.writeText(char).then(() => {
+                        document.getElementById('copiedChar').value = char;
+                        charItem.style.backgroundColor = '#4CAF50';
+                        charItem.style.color = 'white';
+                        setTimeout(() => {
+                            charItem.style.backgroundColor = '';
+                            charItem.style.color = '';
+                        }, 500);
+                    });
+                };
+                charTable.appendChild(charItem);
+            });
+        }
+        
+        // ==================== 颜色选择器 ====================
+        function initColorPicker() {
+            const colorPicker = document.getElementById('colorPicker');
+            const hexValue = document.getElementById('hexValue');
+            const rgbValue = document.getElementById('rgbValue');
+            const colorPreview = document.getElementById('colorPreview');
+            
+            function updateColor() {
+                const color = colorPicker.value;
+                hexValue.value = color;
+                
+                const r = parseInt(color.slice(1, 3), 16);
+                const g = parseInt(color.slice(3, 5), 16);
+                const b = parseInt(color.slice(5, 7), 16);
+                rgbValue.value = `rgb(${r}, ${g}, ${b})`;
+                colorPreview.style.backgroundColor = color;
+            }
+            
+            colorPicker.addEventListener('input', updateColor);
+            updateColor();
+        }
         
         // ==================== 页面初始化 ====================
         document.addEventListener('DOMContentLoaded', function() {
@@ -1101,15 +1795,26 @@ int main() {
             setInterval(updateTime, 1000);
             
             // 初始化单位转换器
-            initConverter();
+            changeConverterType();
             
-            // 初始化画图功能
+            // 初始化画图板
             initDrawing();
             
-            // 初始化C++编辑器
-            // initEditor(); // 如果需要可以取消注释
+            // 初始化特殊字符表
+            updateCharTable();
             
-            // 显示欢迎信息
+            // 初始化颜色选择器
+            initColorPicker();
+            
+            // 初始化代码统计
+            document.getElementById('codeInput').addEventListener('input', updateCodeStats);
+            updateCodeStats();
+            
+            // 初始化单位转换器的输入监听
+            document.getElementById('fromValue').addEventListener('input', convertUnits);
+            document.getElementById('fromUnit').addEventListener('change', convertUnits);
+            document.getElementById('toUnit').addEventListener('change', convertUnits);
+            
             console.log("多功能工具箱已加载完成！");
         });
     </script>
