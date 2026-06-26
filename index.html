@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>多功能工具箱</title>
+    <title>多功能工具箱 - JSON格式化/正则测试/时间戳转换/URL编解码/哈希生成/代码对比/二维码生成/画图板</title>
     <style>
         :root {
             --primary-pink: #FFB6C1;
@@ -12,13 +12,13 @@
             --dark-text: #333333;
             --light-text: #666666;
         }
-        
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
@@ -26,13 +26,13 @@
             background: linear-gradient(135deg, var(--accent-blue) 0%, var(--secondary-beige) 100%);
             min-height: 100vh;
         }
-        
+
         .container {
             max-width: 1400px;
             margin: 0 auto;
             padding: 20px;
         }
-        
+
         header {
             background-color: var(--primary-pink);
             color: white;
@@ -42,12 +42,12 @@
             margin-bottom: 2rem;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
-        
+
         header h1 {
             font-size: 2.5rem;
             margin-bottom: 0.5rem;
         }
-        
+
         .header-info {
             display: flex;
             justify-content: space-between;
@@ -56,7 +56,7 @@
             gap: 1rem;
             margin-top: 1rem;
         }
-        
+
         .time-display {
             font-size: 1.5rem;
             background-color: rgba(255, 255, 255, 0.2);
@@ -65,26 +65,57 @@
             font-family: 'Courier New', monospace;
             font-weight: bold;
         }
-        
+
         .date-display {
             font-size: 1.1rem;
             background-color: rgba(255, 255, 255, 0.2);
             padding: 0.5rem 1rem;
             border-radius: 8px;
         }
-        
+
         .subtitle {
             font-size: 1.2rem;
             opacity: 0.9;
         }
-        
+
+        /* 工具分类导航 */
+        .tool-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            position: sticky;
+            top: 10px;
+            z-index: 100;
+        }
+
+        .tool-nav a {
+            padding: 0.5rem 1rem;
+            background: #f5f5f5;
+            border-radius: 20px;
+            text-decoration: none;
+            color: var(--dark-text);
+            font-size: 0.9rem;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .tool-nav a:hover {
+            background: var(--primary-pink);
+            color: white;
+        }
+
         .tool-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
             gap: 25px;
             margin-bottom: 2rem;
         }
-        
+
         .tool-card {
             background: white;
             border-radius: 12px;
@@ -93,12 +124,12 @@
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             border-top: 5px solid var(--primary-pink);
         }
-        
+
         .tool-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
         }
-        
+
         .tool-card h3 {
             color: #D81B60;
             margin-bottom: 1rem;
@@ -106,23 +137,25 @@
             align-items: center;
             gap: 10px;
         }
-        
+
         .tool-card h3 i {
             font-size: 1.5rem;
         }
-        
+
         .input-group {
             margin-bottom: 1rem;
         }
-        
+
         label {
             display: block;
             margin-bottom: 0.5rem;
             color: var(--light-text);
             font-weight: 500;
         }
-        
-        input, textarea, select {
+
+        input,
+        textarea,
+        select {
             width: 100%;
             padding: 0.8rem;
             border: 2px solid #eee;
@@ -130,18 +163,20 @@
             font-size: 1rem;
             transition: border-color 0.3s;
         }
-        
-        input:focus, textarea:focus, select:focus {
+
+        input:focus,
+        textarea:focus,
+        select:focus {
             outline: none;
             border-color: var(--primary-pink);
         }
-        
+
         textarea {
             min-height: 120px;
             resize: vertical;
             font-family: monospace;
         }
-        
+
         button {
             background-color: var(--primary-pink);
             color: white;
@@ -153,11 +188,11 @@
             transition: background-color 0.3s;
             font-weight: 600;
         }
-        
+
         button:hover {
             background-color: #FF8BA7;
         }
-        
+
         .result {
             background-color: var(--accent-blue);
             padding: 1rem;
@@ -168,15 +203,17 @@
             white-space: pre-wrap;
             word-break: break-all;
             border-left: 4px solid #4DD0E1;
+            max-height: 300px;
+            overflow-y: auto;
         }
-        
+
         .char-table {
             display: grid;
             grid-template-columns: repeat(8, 1fr);
             gap: 8px;
             margin-top: 1rem;
         }
-        
+
         .char-item {
             background-color: #f8f9fa;
             border: 1px solid #dee2e6;
@@ -186,18 +223,18 @@
             cursor: pointer;
             transition: all 0.2s;
         }
-        
+
         .char-item:hover {
             background-color: var(--primary-pink);
             color: white;
             transform: scale(1.1);
         }
-        
+
         .price-list {
             list-style: none;
             margin-top: 1rem;
         }
-        
+
         .price-item {
             background-color: #f8f9fa;
             padding: 0.8rem;
@@ -207,11 +244,11 @@
             justify-content: space-between;
             align-items: center;
         }
-        
+
         .price-item.sorted {
             background-color: var(--accent-blue);
         }
-        
+
         footer {
             text-align: center;
             padding: 1rem;
@@ -221,7 +258,7 @@
             border-radius: 0 0 15px 15px;
             margin-top: 2rem;
         }
-        
+
         @media (max-width: 768px) {
             .tool-grid {
                 grid-template-columns: 1fr;
@@ -233,18 +270,24 @@
                 flex-direction: column;
                 text-align: center;
             }
+            .tool-nav {
+                overflow-x: auto;
+                flex-wrap: nowrap;
+            }
         }
-        
+
         .tool-actions {
             display: flex;
             gap: 10px;
             margin-top: 1rem;
+            flex-wrap: wrap;
         }
-        
+
         .tool-actions button {
             flex: 1;
+            min-width: 80px;
         }
-        
+
         /* 实时时间样式 */
         .time-container {
             display: flex;
@@ -253,66 +296,69 @@
             justify-content: center;
             height: 200px;
         }
-        
+
         .live-time {
             font-size: 3rem;
             font-weight: bold;
             color: #D81B60;
             font-family: 'Courier New', monospace;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
         }
-        
+
         .live-date {
             font-size: 1.5rem;
             margin-top: 0.5rem;
             color: var(--light-text);
         }
-        
+
         .time-info {
             margin-top: 1rem;
             text-align: center;
             color: #666;
         }
-        
+
         /* 单位转换样式 */
         .converter-container {
             display: flex;
             flex-direction: column;
             gap: 1rem;
         }
-        
+
         .converter-row {
             display: flex;
             gap: 10px;
             align-items: center;
+            flex-wrap: wrap;
         }
-        
-        .converter-row input, .converter-row select {
+
+        .converter-row input,
+        .converter-row select {
             flex: 1;
+            min-width: 80px;
         }
-        
+
         .converter-icon {
             width: 40px;
             text-align: center;
             font-size: 1.2rem;
             color: var(--primary-pink);
         }
-        
+
         /* 画图板样式 */
         .drawing-container {
             display: flex;
             flex-direction: column;
             gap: 1rem;
         }
-        
+
         .drawing-tools {
             display: flex;
-            gap: 10px;
+            gap: 5px;
             flex-wrap: wrap;
         }
-        
+
         .drawing-tool {
-            padding: 8px 12px;
+            padding: 6px 10px;
             background-color: #f5f5f5;
             border: 2px solid #ddd;
             border-radius: 6px;
@@ -321,18 +367,19 @@
             align-items: center;
             gap: 5px;
             transition: all 0.2s;
+            font-size: 0.85rem;
         }
-        
+
         .drawing-tool:hover {
             background-color: #e9e9e9;
         }
-        
+
         .drawing-tool.active {
             background-color: var(--primary-pink);
             color: white;
             border-color: var(--primary-pink);
         }
-        
+
         .drawing-canvas-container {
             border: 2px solid #ddd;
             border-radius: 8px;
@@ -340,20 +387,20 @@
             background-color: white;
             height: 300px;
         }
-        
+
         .drawing-canvas {
             display: block;
             width: 100%;
             height: 100%;
             cursor: crosshair;
         }
-        
+
         .color-palette {
             display: flex;
             gap: 5px;
             flex-wrap: wrap;
         }
-        
+
         .color-option {
             width: 30px;
             height: 30px;
@@ -361,77 +408,81 @@
             cursor: pointer;
             border: 2px solid transparent;
         }
-        
+
         .color-option:hover {
             transform: scale(1.1);
         }
-        
+
         .color-option.active {
             border-color: #333;
-            box-shadow: 0 0 5px rgba(0,0,0,0.3);
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
         }
-        
+
         .drawing-stats {
             display: flex;
             justify-content: space-between;
             font-size: 0.9rem;
             color: #666;
+            flex-wrap: wrap;
+            gap: 5px;
         }
-        
-        /* 控制组样式 */
+
         .control-group {
             display: flex;
             flex-direction: column;
             gap: 5px;
         }
-        
+
         .control-group label {
             font-size: 0.9rem;
             margin-bottom: 0.2rem;
         }
-        
+
         .control-row {
             display: flex;
             align-items: center;
             gap: 10px;
         }
-        
+
         .special-btn {
             background-color: #2196F3;
         }
-        
         .special-btn:hover {
             background-color: #1976d2;
         }
-        
+
         .clear-btn {
             background-color: #f44336;
         }
-        
         .clear-btn:hover {
             background-color: #d32f2f;
         }
-        
+
         .save-btn {
             background-color: #4CAF50;
         }
-        
         .save-btn:hover {
             background-color: #388e3c;
         }
-        
+
         .undo-btn {
             background-color: #2196F3;
         }
-        
         .undo-btn:hover {
             background-color: #1976d2;
         }
-        
-        /* 编辑器样式 */
+
+        .copy-btn {
+            background-color: #FF9800;
+        }
+        .copy-btn:hover {
+            background-color: #F57C00;
+        }
+
+        /* 代码编辑器样式 */
         .code-editor {
             width: 100%;
-            height: 300px;
+            height: 250px;
             font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
             font-size: 14px;
             line-height: 1.5;
@@ -440,50 +491,12 @@
             border-radius: 8px;
             resize: vertical;
         }
-        
+
         .code-editor:focus {
             outline: none;
             border-color: var(--primary-pink);
         }
-        
-        .editor-container {
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            overflow: hidden;
-        }
-        
-        .editor-header {
-            background-color: #f5f5f5;
-            padding: 0.5rem 1rem;
-            border-bottom: 1px solid #ddd;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .editor-toolbar {
-            display: flex;
-            gap: 5px;
-        }
-        
-        .editor-btn {
-            padding: 4px 8px;
-            font-size: 0.8rem;
-            background-color: #e0e0e0;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        
-        .editor-btn:hover {
-            background-color: #d0d0d0;
-        }
-        
-        .editor-btn.active {
-            background-color: var(--primary-pink);
-            color: white;
-        }
-        
+
         .editor-status {
             display: flex;
             justify-content: space-between;
@@ -491,14 +504,90 @@
             color: #666;
             margin-top: 0.5rem;
         }
+
+        /* JSON树形展示 */
+        .json-tree {
+            font-family: monospace;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .json-key {
+            color: #881391;
+            font-weight: bold;
+        }
+        .json-string {
+            color: #1A1AA6;
+        }
+        .json-number {
+            color: #1C6B48;
+        }
+        .json-boolean {
+            color: #AA5D00;
+        }
+        .json-null {
+            color: #808080;
+            font-style: italic;
+        }
+
+        /* Diff对比样式 */
+        .diff-line {
+            padding: 2px 8px;
+            font-family: monospace;
+            font-size: 13px;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+        .diff-added {
+            background-color: #e6ffec;
+            color: #1a7f37;
+        }
+        .diff-removed {
+            background-color: #ffebe9;
+            color: #cf222e;
+        }
+        .diff-unchanged {
+            background-color: transparent;
+        }
+
+        /* 正则匹配高亮 */
+        .regex-match {
+            background-color: #ffff00;
+            padding: 1px 2px;
+            border-radius: 2px;
+        }
+
+        .regex-error {
+            color: #f44336;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        /* 二维码容器 */
+        .qrcode-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+
+        .qrcode-container canvas,
+        .qrcode-container img {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 10px;
+            background: white;
+        }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- QR码库 -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js">
+    </script>
 </head>
 <body>
     <div class="container">
         <header>
             <h1><i class="fas fa-toolbox"></i> 多功能工具箱</h1>
-            <p class="subtitle">一站式网页工具集合 - 所有功能一体化</p>
+            <p class="subtitle">一站式网页工具集合 - JSON格式化 | 正则测试 | 时间戳转换 | URL编解码 | 哈希生成 | 代码对比 | 二维码生成 | 更多...</p>
             <div class="header-info">
                 <div class="time-display">
                     <i class="fas fa-clock"></i> 北京时间: <span id="currentTime">00:00:00</span>
@@ -508,13 +597,324 @@
                 </div>
             </div>
         </header>
-        
+
+        <!-- 工具导航 -->
+        <nav class="tool-nav" id="toolNav">
+            <a href="#jsonFormatter">JSON格式化</a>
+            <a href="#urlCodec">URL编解码</a>
+            <a href="#timestamp">时间戳转换</a>
+            <a href="#regexTester">正则测试</a>
+            <a href="#hashGenerator">哈希生成</a>
+            <a href="#diffTool">代码对比</a>
+            <a href="#uuidGenerator">UUID生成</a>
+            <a href="#qrcodeGenerator">二维码生成</a>
+            <a href="#base64">Base64</a>
+            <a href="#unitConverter">单位转换</a>
+            <a href="#priceSorter">价格排序</a>
+            <a href="#drawingBoard">画图板</a>
+            <a href="#codeEditor">代码编辑</a>
+            <a href="#charTable">特殊字符</a>
+            <a href="#colorPicker">颜色选择</a>
+        </nav>
+
         <div class="tool-grid">
+            <!-- JSON格式化/验证器 -->
+            <div class="tool-card" id="jsonFormatter">
+                <h3><i class="fas fa-code"></i> JSON格式化/验证器</h3>
+                <p>格式化、压缩、验证JSON数据，支持树形展示</p>
+
+                <div class="input-group">
+                    <label for="jsonInput">输入JSON数据：</label>
+                    <textarea id="jsonInput" class="code-editor" placeholder='{"name":"工具箱","version":"1.0","features":["JSON格式化","正则测试"]}'>{"name":"多功能工具箱","version":"2.0","author":{"name":"开发者","email":"dev@example.com"},"features":["JSON格式化","正则表达式测试","时间戳转换","URL编解码"],"stats":{"tools":15,"users":1000}}</textarea>
+                </div>
+
+                <div class="tool-actions">
+                    <button onclick="formatJSON()"><i class="fas fa-indent"></i> 格式化</button>
+                    <button onclick="compressJSON()"><i class="fas fa-compress"></i> 压缩</button>
+                    <button onclick="validateJSON()" class="special-btn"><i class="fas fa-check-circle"></i> 验证</button>
+                    <button onclick="clearJSON()" class="clear-btn"><i class="fas fa-trash"></i> 清空</button>
+                </div>
+
+                <div id="jsonResult" class="result">点击"格式化"查看结果</div>
+            </div>
+
+            <!-- URL编解码 -->
+            <div class="tool-card" id="urlCodec">
+                <h3><i class="fas fa-link"></i> URL编解码</h3>
+                <p>URL编码（encodeURIComponent）与解码（decodeURIComponent）</p>
+
+                <div class="input-group">
+                    <label for="urlInput">输入要编码/解码的文本：</label>
+                    <textarea id="urlInput" placeholder="输入URL或文本...">https://example.com?name=测试&type=工具</textarea>
+                </div>
+
+                <div class="tool-actions">
+                    <button onclick="encodeURL()"><i class="fas fa-lock"></i> URL编码</button>
+                    <button onclick="decodeURL()"><i class="fas fa-unlock"></i> URL解码</button>
+                    <button onclick="encodeURIComponentFull()" class="special-btn"><i class="fas fa-shield-alt"></i> 完整编码</button>
+                </div>
+
+                <div id="urlResult" class="result">结果将显示在这里</div>
+            </div>
+
+            <!-- 时间戳转换器 -->
+            <div class="tool-card" id="timestamp">
+                <h3><i class="fas fa-stopwatch"></i> 时间戳转换器</h3>
+                <p>Unix时间戳与日期时间互转，支持秒/毫秒</p>
+
+                <div class="input-group">
+                    <label>当前时间戳：</label>
+                    <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+                        <input type="text" id="currentTimestamp" readonly style="flex: 1; background: #f5f5f5; font-family: monospace; font-size: 1.2rem;">
+                        <button onclick="copyCurrentTimestamp()" class="copy-btn"><i class="fas fa-copy"></i> 复制</button>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="timestampInput">时间戳转日期（输入秒或毫秒）：</label>
+                    <div style="display: flex; gap: 10px;">
+                        <input type="text" id="timestampInput" placeholder="例如: 1700000000">
+                        <button onclick="timestampToDate()">转换</button>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="dateInput">日期转时间戳：</label>
+                    <div style="display: flex; gap: 10px;">
+                        <input type="datetime-local" id="dateInput">
+                        <button onclick="dateToTimestamp()">转换</button>
+                    </div>
+                </div>
+
+                <div id="timestampResult" class="result">点击转换查看结果</div>
+            </div>
+
+            <!-- 正则表达式测试器 -->
+            <div class="tool-card" id="regexTester">
+                <h3><i class="fas fa-search"></i> 正则表达式测试器</h3>
+                <p>实时测试正则表达式，高亮显示匹配结果</p>
+
+                <div class="input-group">
+                    <label for="regexPattern">正则表达式：</label>
+                    <div style="display: flex; gap: 10px;">
+                        <input type="text" id="regexPattern" placeholder="例如: \\d{4}-\\d{2}-\\d{2}" value="\\d{4}-\\d{2}-\\d{2}">
+                        <select id="regexFlags" style="width: auto;">
+                            <option value="">无</option>
+                            <option value="g">全局(g)</option>
+                            <option value="gi">全局+忽略大小写(gi)</option>
+                            <option value="gm">全局+多行(gm)</option>
+                            <option value="gim">全局+忽略大小写+多行(gim)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="regexInput">测试文本：</label>
+                    <textarea id="regexInput" placeholder="输入要测试的文本...">2024-01-15 会议记录
+2024-02-28 项目截止
+2024-03-10 版本发布
+2023-12-25 年终总结</textarea>
+                </div>
+
+                <div class="tool-actions">
+                    <button onclick="testRegex()"><i class="fas fa-play"></i> 测试匹配</button>
+                    <button onclick="highlightMatches()" class="special-btn"><i class="fas fa-highlighter"></i> 高亮显示</button>
+                </div>
+
+                <div id="regexResult" class="result">输入正则表达式后点击测试</div>
+            </div>
+
+            <!-- MD5/SHA哈希生成器 -->
+            <div class="tool-card" id="hashGenerator">
+                <h3><i class="fas fa-fingerprint"></i> 哈希生成器 (MD5/SHA)</h3>
+                <p>生成MD5、SHA-1、SHA-256、SHA-512哈希值</p>
+
+                <div class="input-group">
+                    <label for="hashInput">输入文本：</label>
+                    <textarea id="hashInput" placeholder="输入要计算哈希的文本...">Hello, 多功能工具箱!</textarea>
+                </div>
+
+                <div class="input-group">
+                    <label for="hashType">选择哈希算法：</label>
+                    <select id="hashType">
+                        <option value="MD5">MD5</option>
+                        <option value="SHA-1">SHA-1</option>
+                        <option value="SHA-256">SHA-256</option>
+                        <option value="SHA-384">SHA-384</option>
+                        <option value="SHA-512">SHA-512</option>
+                    </select>
+                </div>
+
+                <button onclick="generateHash()"><i class="fas fa-calculator"></i> 生成哈希</button>
+
+                <div id="hashResult" class="result">选择算法后点击生成</div>
+            </div>
+
+            <!-- 代码差异对比 -->
+            <div class="tool-card" id="diffTool">
+                <h3><i class="fas fa-columns"></i> 代码差异对比</h3>
+                <p>对比两段文本的差异，逐行高亮显示</p>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <div class="input-group">
+                        <label for="diffOriginal">原始文本：</label>
+                        <textarea id="diffOriginal" style="height: 200px;">function hello() {
+    console.log("Hello World");
+    return true;
+}
+
+const name = "工具箱";
+const version = "1.0";</textarea>
+                    </div>
+                    <div class="input-group">
+                        <label for="diffModified">修改后文本：</label>
+                        <textarea id="diffModified" style="height: 200px;">function hello() {
+    console.log("Hello, World!");
+    console.log("Welcome!");
+    return true;
+}
+
+const name = "多功能工具箱";
+const version = "2.0";
+const author = "开发者";</textarea>
+                    </div>
+                </div>
+
+                <div class="tool-actions">
+                    <button onclick="compareDiff()"><i class="fas fa-code-compare"></i> 对比差异</button>
+                    <button onclick="swapDiff()" class="special-btn"><i class="fas fa-exchange-alt"></i> 交换左右</button>
+                </div>
+
+                <div id="diffResult" class="result" style="max-height: 300px; overflow-y: auto;">点击"对比差异"查看结果</div>
+            </div>
+
+            <!-- UUID/随机密码生成器 -->
+            <div class="tool-card" id="uuidGenerator">
+                <h3><i class="fas fa-key"></i> UUID/随机密码生成器</h3>
+                <p>生成UUID v4、随机密码、随机字符串</p>
+
+                <div class="input-group">
+                    <label>UUID生成器：</label>
+                    <div style="display: flex; gap: 10px; align-items: center;">
+                        <input type="text" id="uuidOutput" readonly style="font-family: monospace; background: #f5f5f5;">
+                        <button onclick="generateUUID()"><i class="fas fa-sync-alt"></i> 生成</button>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="passwordLength">随机密码长度：<span id="passwordLengthValue">16</span></label>
+                    <input type="range" id="passwordLength" min="8" max="64" value="16" oninput="document.getElementById('passwordLengthValue').textContent=this.value">
+                </div>
+
+                <div class="input-group">
+                    <label>密码选项：</label>
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                        <label style="display: flex; align-items: center; gap: 5px; font-weight: normal;">
+                            <input type="checkbox" id="includeUpper" checked> 大写字母
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 5px; font-weight: normal;">
+                            <input type="checkbox" id="includeLower" checked> 小写字母
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 5px; font-weight: normal;">
+                            <input type="checkbox" id="includeNumbers" checked> 数字
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 5px; font-weight: normal;">
+                            <input type="checkbox" id="includeSymbols"> 特殊符号
+                        </label>
+                    </div>
+                </div>
+
+                <div class="tool-actions">
+                    <button onclick="generatePassword()"><i class="fas fa-dice"></i> 生成随机密码</button>
+                    <button onclick="copyPassword()" class="copy-btn"><i class="fas fa-copy"></i> 复制密码</button>
+                </div>
+
+                <div id="passwordResult" class="result">点击生成随机密码</div>
+            </div>
+
+            <!-- 二维码生成器 -->
+            <div class="tool-card" id="qrcodeGenerator">
+                <h3><i class="fas fa-qrcode"></i> 二维码生成器</h3>
+                <p>输入文本或链接，即时生成二维码图片</p>
+
+                <div class="input-group">
+                    <label for="qrcodeInput">输入文本/链接：</label>
+                    <textarea id="qrcodeInput" placeholder="输入要生成二维码的内容...">https://github.com</textarea>
+                </div>
+
+                <div class="input-group">
+                    <label for="qrcodeSize">二维码大小：<span id="qrcodeSizeValue">200</span>px</label>
+                    <input type="range" id="qrcodeSize" min="100" max="400" value="200" oninput="document.getElementById('qrcodeSizeValue').textContent=this.value">
+                </div>
+
+                <button onclick="generateQRCode()"><i class="fas fa-qrcode"></i> 生成二维码</button>
+
+                <div class="qrcode-container" id="qrcodeContainer"></div>
+
+                <div class="tool-actions" style="margin-top: 1rem;">
+                    <button onclick="downloadQRCode()" class="save-btn" id="downloadQRBtn" style="display: none;">
+                        <i class="fas fa-download"></i> 下载二维码
+                    </button>
+                </div>
+            </div>
+
+            <!-- Base64编码/解码 -->
+            <div class="tool-card" id="base64">
+                <h3><i class="fas fa-lock"></i> Base64编码/解码</h3>
+                <p>将文本转换为Base64格式或从Base64解码回文本</p>
+
+                <div class="input-group">
+                    <label for="base64Input">输入要编码/解码的文本：</label>
+                    <textarea id="base64Input" placeholder="请输入要编码或解码的文本...">Hello, welcome to the toolbox!</textarea>
+                </div>
+
+                <div class="tool-actions">
+                    <button onclick="encodeBase64()">编码为Base64</button>
+                    <button onclick="decodeBase64()" class="special-btn">解码Base64</button>
+                </div>
+
+                <div id="base64Result" class="result">结果将显示在这里</div>
+            </div>
+
+            <!-- 商品价格排序器 -->
+            <div class="tool-card" id="priceSorter">
+                <h3><i class="fas fa-sort-amount-down"></i> 商品价格排序器</h3>
+                <p>为购物网站、汽车网站等提取商品价格并进行排序</p>
+
+                <div class="input-group">
+                    <label for="priceInput">输入商品价格列表（每行一个，格式：商品名 价格）：</label>
+                    <textarea id="priceInput" placeholder="示例：
+特斯拉 Model 3 289,900
+iPhone 16 Pro 8,999
+戴森吸尘器 3,299
+联想笔记本 6,499
+华为Mate 60 7,999
+奔驰 C级 358,000">特斯拉 Model 3 289,900
+iPhone 16 Pro 8,999
+戴森吸尘器 3,299
+联想笔记本 6,499
+华为Mate 60 7,999
+奔驰 C级 358,000</textarea>
+                </div>
+
+                <div class="input-group">
+                    <label>排序方式：</label>
+                    <select id="sortOrder">
+                        <option value="asc">从低到高</option>
+                        <option value="desc">从高到低</option>
+                    </select>
+                </div>
+
+                <button onclick="sortPrices()">开始排序</button>
+
+                <div id="priceResult" class="result">排序结果将显示在这里</div>
+            </div>
+
             <!-- 实时北京时间 -->
             <div class="tool-card">
                 <h3><i class="fas fa-clock"></i> 实时北京时间</h3>
                 <p>实时显示北京时间，每秒自动更新</p>
-                
+
                 <div class="time-container">
                     <div class="live-time" id="liveTime">00:00:00</div>
                     <div class="live-date" id="liveDate">2023年1月1日 星期日</div>
@@ -523,7 +923,7 @@
                         <p>当前时区: 北京时间 (UTC+8)</p>
                     </div>
                 </div>
-                
+
                 <div class="tool-actions">
                     <button onclick="toggle24Hour()" id="timeFormatBtn">
                         <i class="fas fa-exchange-alt"></i> 切换12/24小时制
@@ -533,12 +933,12 @@
                     </button>
                 </div>
             </div>
-            
+
             <!-- 单位转换器 -->
-            <div class="tool-card">
+            <div class="tool-card" id="unitConverter">
                 <h3><i class="fas fa-exchange-alt"></i> 多功能单位转换器</h3>
                 <p>支持货币、长度、面积、体积、时间、温度、重量、速度、数据存储转换</p>
-                
+
                 <div class="converter-container">
                     <div class="input-group">
                         <label>转换类型：</label>
@@ -554,7 +954,7 @@
                             <option value="data">数据存储转换</option>
                         </select>
                     </div>
-                    
+
                     <div class="converter-row">
                         <input type="number" id="fromValue" value="1" placeholder="输入数值" step="0.01">
                         <select id="fromUnit"></select>
@@ -564,11 +964,9 @@
                         <select id="toUnit"></select>
                         <button onclick="convertUnits()">转换</button>
                     </div>
-                    
-                    <div class="result" id="conversionResult">
-                        转换结果将显示在这里
-                    </div>
-                    
+
+                    <div class="result" id="conversionResult">转换结果将显示在这里</div>
+
                     <div class="input-group">
                         <label>单位说明：</label>
                         <div id="unitDescription" style="font-size: 0.9rem; color: #666; padding: 0.5rem; background-color: #f8f9fa; border-radius: 5px;">
@@ -577,12 +975,12 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- 在线画图板 -->
-            <div class="tool-card">
+            <div class="tool-card" id="drawingBoard">
                 <h3><i class="fas fa-paint-brush"></i> 在线画图板</h3>
                 <p>自由绘制图形、涂鸦和图表 - 完全可用版本</p>
-                
+
                 <div class="drawing-container">
                     <div class="drawing-tools">
                         <button class="drawing-tool active" data-tool="pencil" title="画笔">
@@ -604,7 +1002,7 @@
                             <i class="fas fa-eraser"></i> 橡皮擦
                         </button>
                     </div>
-                    
+
                     <div class="control-group">
                         <label>画笔设置：</label>
                         <div class="control-row">
@@ -618,7 +1016,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="control-group">
                         <label>颜色选择：</label>
                         <div class="color-palette">
@@ -634,17 +1032,17 @@
                             <div class="color-option" data-color="#ffffff" style="background-color: #ffffff; border: 1px solid #ccc;"></div>
                         </div>
                     </div>
-                    
+
                     <div class="drawing-canvas-container">
                         <canvas id="drawingCanvas" class="drawing-canvas"></canvas>
                     </div>
-                    
+
                     <div class="drawing-stats">
                         <span>坐标: (<span id="mouseX">0</span>, <span id="mouseY">0</span>)</span>
                         <span>工具: <span id="currentToolName">画笔</span></span>
                         <span>颜色: <span id="currentColorName">#000000</span></span>
                     </div>
-                    
+
                     <div class="tool-actions">
                         <button onclick="clearDrawing()" class="clear-btn">
                             <i class="fas fa-trash"></i> 清空画布
@@ -658,68 +1056,12 @@
                     </div>
                 </div>
             </div>
-            
-            <!-- Base64编码/解码 -->
-            <div class="tool-card">
-                <h3><i class="fas fa-lock"></i> Base64编码/解码</h3>
-                <p>将文本转换为Base64格式或从Base64解码回文本</p>
-                
-                <div class="input-group">
-                    <label for="base64Input">输入要编码/解码的文本：</label>
-                    <textarea id="base64Input" placeholder="请输入要编码或解码的文本...">Hello, welcome to the toolbox!</textarea>
-                </div>
-                
-                <div class="tool-actions">
-                    <button onclick="encodeBase64()">编码为Base64</button>
-                    <button onclick="decodeBase64()" class="special-btn">解码Base64</button>
-                </div>
-                
-                <div id="base64Result" class="result">
-                    结果将显示在这里
-                </div>
-            </div>
-            
-            <!-- 商品价格排序器 -->
-            <div class="tool-card">
-                <h3><i class="fas fa-sort-amount-down"></i> 商品价格排序器</h3>
-                <p>为购物网站、汽车网站等提取商品价格并进行排序</p>
-                
-                <div class="input-group">
-                    <label for="priceInput">输入商品价格列表（每行一个，格式：商品名 价格）：</label>
-                    <textarea id="priceInput" placeholder="示例：
-特斯拉 Model 3 289,900
-iPhone 16 Pro 8,999
-戴森吸尘器 3,299
-联想笔记本 6,499
-华为Mate 60 7,999
-奔驰 C级 358,000">特斯拉 Model 3 289,900
-iPhone 16 Pro 8,999
-戴森吸尘器 3,299
-联想笔记本 6,499
-华为Mate 60 7,999
-奔驰 C级 358,000</textarea>
-                </div>
-                
-                <div class="input-group">
-                    <label>排序方式：</label>
-                    <select id="sortOrder">
-                        <option value="asc">从低到高</option>
-                        <option value="desc">从高到低</option>
-                    </select>
-                </div>
-                
-                <button onclick="sortPrices()">开始排序</button>
-                
-                <div id="priceResult" class="result">
-                    排序结果将显示在这里
-                </div>
-            </div>
-            
+
             <!-- C++代码编辑器 -->
-            <div class="tool-card">
+            <div class="tool-card" id="codeEditor">
                 <h3><i class="fas fa-code"></i> C++代码编辑器</h3>
                 <p>编写和格式化C++代码，支持语法高亮和自动缩进</p>
-                
+
                 <div class="input-group">
                     <label for="codeInput">输入C++代码：</label>
                     <textarea id="codeInput" class="code-editor" placeholder="#include &lt;iostream&gt;
@@ -737,32 +1079,32 @@ using namespace std;
 int main() {
     vector&lt;string&gt; fruits = {"苹果", "香蕉", "橙子"};
     cout &lt;&lt; "水果列表：" &lt;&lt; endl;
-    
+
     for (int i = 0; i &lt; fruits.size(); i++) {
         cout &lt;&lt; i+1 &lt;&lt; ". " &lt;&lt; fruits[i] &lt;&lt; endl;
     }
-    
+
     return 0;
 }</textarea>
                 </div>
-                
+
                 <div class="tool-actions">
                     <button onclick="formatCppCode()">格式化代码</button>
                     <button onclick="clearCode()" class="clear-btn">清空</button>
                     <button onclick="saveCppCode()" class="save-btn">保存</button>
                 </div>
-                
+
                 <div class="editor-status">
                     <span>行数: <span id="codeLineCount">1</span></span>
                     <span>字符: <span id="codeCharCount">0</span></span>
                 </div>
             </div>
-            
+
             <!-- 特殊字符表 -->
-            <div class="tool-card">
+            <div class="tool-card" id="charTable">
                 <h3><i class="fas fa-symbols"></i> 特殊字符表</h3>
                 <p>点击字符即可复制到剪贴板</p>
-                
+
                 <div class="input-group">
                     <label>选择字符类别：</label>
                     <select id="charCategory" onchange="updateCharTable()">
@@ -773,71 +1115,77 @@ int main() {
                         <option value="tech">技术符号</option>
                     </select>
                 </div>
-                
-                <div id="charTable" class="char-table"></div>
-                
+
+                <div id="charTableDisplay" class="char-table"></div>
+
                 <div class="input-group" style="margin-top: 1rem;">
                     <label>已复制的字符：</label>
                     <input type="text" id="copiedChar" readonly placeholder="点击上方字符进行复制">
                 </div>
             </div>
-            
+
             <!-- 颜色选择器 -->
-            <div class="tool-card">
+            <div class="tool-card" id="colorPicker">
                 <h3><i class="fas fa-palette"></i> 颜色选择器</h3>
-                <p>选择颜色并获取HEX、RGB值</p>
-                
+                <p>选择颜色并获取HEX、RGB、HSL值</p>
+
                 <div class="input-group">
                     <label>选择颜色：</label>
-                    <input type="color" id="colorPicker" value="#FFB6C1">
+                    <input type="color" id="colorPickerInput" value="#FFB6C1">
                 </div>
-                
+
                 <div class="input-group">
                     <label>HEX值：</label>
-                    <input type="text" id="hexValue" readonly>
+                    <div style="display: flex; gap: 10px;">
+                        <input type="text" id="hexValue" readonly>
+                        <button onclick="copyColorValue('hex')" class="copy-btn" style="flex: 0 0 auto;"><i class="fas fa-copy"></i></button>
+                    </div>
                 </div>
-                
+
                 <div class="input-group">
                     <label>RGB值：</label>
-                    <input type="text" id="rgbValue" readonly>
+                    <div style="display: flex; gap: 10px;">
+                        <input type="text" id="rgbValue" readonly>
+                        <button onclick="copyColorValue('rgb')" class="copy-btn" style="flex: 0 0 auto;"><i class="fas fa-copy"></i></button>
+                    </div>
                 </div>
-                
+
+                <div class="input-group">
+                    <label>HSL值：</label>
+                    <div style="display: flex; gap: 10px;">
+                        <input type="text" id="hslValue" readonly>
+                        <button onclick="copyColorValue('hsl')" class="copy-btn" style="flex: 0 0 auto;"><i class="fas fa-copy"></i></button>
+                    </div>
+                </div>
+
                 <div class="input-group">
                     <label>颜色预览：</label>
                     <div id="colorPreview" style="width: 100%; height: 60px; border-radius: 8px; border: 1px solid #ddd;"></div>
                 </div>
             </div>
         </div>
-        
+
         <footer>
-            <p>多功能工具箱 © 2023 | 包含实时时间、单位转换、画图、代码编辑、Base64、价格排序等多种实用工具</p>
+            <p>多功能工具箱 © 2024 | JSON格式化 | 正则测试 | 时间戳转换 | URL编解码 | 哈希生成 | 代码对比 | UUID生成 | 二维码生成 | 画图板 | Base64 | 单位转换 | 价格排序 | 代码编辑 | 特殊字符 | 颜色选择</p>
         </footer>
     </div>
 
     <script>
         // ==================== 实时时间功能 ====================
         let is24Hour = true;
-        
+
         function updateTime() {
             const now = new Date();
-            
-            // 获取时、分、秒
             let hours = now.getHours();
             const minutes = String(now.getMinutes()).padStart(2, '0');
             const seconds = String(now.getSeconds()).padStart(2, '0');
-            
-            // 获取日期
             const year = now.getFullYear();
             const month = String(now.getMonth() + 1).padStart(2, '0');
             const day = String(now.getDate()).padStart(2, '0');
-            
-            // 获取星期
             const weekdays = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
             const weekday = weekdays[now.getDay()];
-            
-            // 格式化时间显示
+
             let timeString, displayTime;
-            
             if (is24Hour) {
                 timeString = `${String(hours).padStart(2, '0')}:${minutes}:${seconds}`;
                 displayTime = timeString;
@@ -847,35 +1195,387 @@ int main() {
                 timeString = `${String(hours).padStart(2, '0')}:${minutes}:${seconds} ${ampm}`;
                 displayTime = `${String(hours).padStart(2, '0')}:${minutes}:${seconds} <span style="font-size: 0.8em;">${ampm}</span>`;
             }
-            
-            // 更新页面上所有时间显示
+
             document.getElementById('currentTime').textContent = timeString;
             document.getElementById('liveTime').innerHTML = displayTime;
             document.getElementById('currentDate').textContent = `${year}年${month}月${day}日`;
             document.getElementById('liveDate').textContent = `${year}年${month}月${day}日 ${weekday}`;
+
+            // 更新时间戳
+            const tsSeconds = Math.floor(now.getTime() / 1000);
+            const tsMillis = now.getTime();
+            document.getElementById('currentTimestamp').value = `${tsSeconds} (秒)\n${tsMillis} (毫秒)`;
         }
-        
+
         function toggle24Hour() {
             is24Hour = !is24Hour;
             const btn = document.getElementById('timeFormatBtn');
-            btn.innerHTML = is24Hour ? 
-                '<i class="fas fa-exchange-alt"></i> 切换到12小时制' : 
+            btn.innerHTML = is24Hour ?
+                '<i class="fas fa-exchange-alt"></i> 切换到12小时制' :
                 '<i class="fas fa-exchange-alt"></i> 切换到24小时制';
             updateTime();
         }
-        
+
         function copyTime() {
             const now = new Date();
-            const hours = String(now.getHours()).padStart(2, '0');
-            const minutes = String(now.getMinutes()).padStart(2, '0');
-            const seconds = String(now.getSeconds()).padStart(2, '0');
-            const timeString = `${hours}:${minutes}:${seconds}`;
-            
-            navigator.clipboard.writeText(timeString).then(() => {
-                alert(`已复制当前时间: ${timeString}`);
-            });
+            const timeString = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
+            navigator.clipboard.writeText(timeString).then(() => alert(`已复制: ${timeString}`));
         }
-        
+
+        function copyCurrentTimestamp() {
+            const ts = Math.floor(Date.now() / 1000);
+            navigator.clipboard.writeText(ts.toString()).then(() => alert(`已复制时间戳(秒): ${ts}`));
+        }
+
+        // ==================== JSON格式化 ====================
+        function formatJSON() {
+            const input = document.getElementById('jsonInput').value.trim();
+            if (!input) { showResult('jsonResult', '请输入JSON数据', 'error'); return; }
+            try {
+                const obj = JSON.parse(input);
+                const formatted = JSON.stringify(obj, null, 2);
+                document.getElementById('jsonResult').innerHTML = `
+                    <div style="color: #4CAF50; margin-bottom: 10px;"><i class="fas fa-check-circle"></i> JSON格式正确</div>
+                    <pre style="background: white; padding: 10px; border-radius: 5px; overflow-x: auto;">${escapeHtml(formatted)}</pre>
+                `;
+            } catch (e) {
+                document.getElementById('jsonResult').innerHTML = `<div style="color: #f44336;"><i class="fas fa-times-circle"></i> JSON解析错误: ${escapeHtml(e.message)}</div>`;
+            }
+        }
+
+        function compressJSON() {
+            const input = document.getElementById('jsonInput').value.trim();
+            if (!input) { showResult('jsonResult', '请输入JSON数据', 'error'); return; }
+            try {
+                const obj = JSON.parse(input);
+                const compressed = JSON.stringify(obj);
+                document.getElementById('jsonResult').innerHTML = `
+                    <div style="color: #4CAF50; margin-bottom: 10px;"><i class="fas fa-check-circle"></i> 压缩成功</div>
+                    <div style="background: white; padding: 10px; border-radius: 5px; word-break: break-all;">${escapeHtml(compressed)}</div>
+                    <div style="margin-top: 10px; font-size: 0.85rem; color: #666;">原始大小: ${input.length} 字符 → 压缩后: ${compressed.length} 字符 (节省 ${((1 - compressed.length / input.length) * 100).toFixed(1)}%)</div>
+                `;
+            } catch (e) {
+                document.getElementById('jsonResult').innerHTML = `<div style="color: #f44336;">JSON解析错误: ${escapeHtml(e.message)}</div>`;
+            }
+        }
+
+        function validateJSON() {
+            const input = document.getElementById('jsonInput').value.trim();
+            if (!input) { showResult('jsonResult', '请输入JSON数据', 'error'); return; }
+            try {
+                const obj = JSON.parse(input);
+                const type = Array.isArray(obj) ? '数组' : typeof obj === 'object' ? '对象' : typeof obj;
+                const keys = typeof obj === 'object' && obj !== null && !Array.isArray(obj) ? Object.keys(obj).length : (Array.isArray(obj) ? obj.length : 0);
+                document.getElementById('jsonResult').innerHTML = `
+                    <div style="color: #4CAF50;"><i class="fas fa-check-circle"></i> 有效的JSON</div>
+                    <div style="margin-top: 10px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 0.9rem;">
+                        <div>类型: <strong>${type}</strong></div>
+                        <div>${Array.isArray(obj) ? '数组长度' : '键数量'}: <strong>${keys}</strong></div>
+                        <div>原始长度: <strong>${input.length}</strong> 字符</div>
+                        <div>格式化长度: <strong>${JSON.stringify(obj, null, 2).length}</strong> 字符</div>
+                    </div>
+                `;
+            } catch (e) {
+                document.getElementById('jsonResult').innerHTML = `<div style="color: #f44336;"><i class="fas fa-times-circle"></i> 无效的JSON: ${escapeHtml(e.message)}</div>`;
+            }
+        }
+
+        function clearJSON() {
+            document.getElementById('jsonInput').value = '';
+            document.getElementById('jsonResult').innerHTML = '已清空';
+        }
+
+        // ==================== URL编解码 ====================
+        function encodeURL() {
+            const input = document.getElementById('urlInput').value;
+            if (!input) { showResult('urlResult', '请输入文本', 'error'); return; }
+            try {
+                const encoded = encodeURIComponent(input);
+                document.getElementById('urlResult').innerHTML = `
+                    <div style="margin-bottom: 10px;"><strong>URL编码结果：</strong></div>
+                    <div style="background: white; padding: 10px; border-radius: 5px; word-break: break-all;">${escapeHtml(encoded)}</div>
+                `;
+            } catch (e) {
+                showResult('urlResult', `编码失败: ${e.message}`, 'error');
+            }
+        }
+
+        function decodeURL() {
+            const input = document.getElementById('urlInput').value.trim();
+            if (!input) { showResult('urlResult', '请输入文本', 'error'); return; }
+            try {
+                const decoded = decodeURIComponent(input);
+                document.getElementById('urlResult').innerHTML = `
+                    <div style="margin-bottom: 10px;"><strong>URL解码结果：</strong></div>
+                    <div style="background: white; padding: 10px; border-radius: 5px; word-break: break-all;">${escapeHtml(decoded)}</div>
+                `;
+            } catch (e) {
+                showResult('urlResult', `解码失败: 无效的URL编码字符串`, 'error');
+            }
+        }
+
+        function encodeURIComponentFull() {
+            const input = document.getElementById('urlInput').value;
+            if (!input) { showResult('urlResult', '请输入文本', 'error'); return; }
+            try {
+                const encoded = encodeURIComponent(input).replace(/[!'()*]/g, c => '%' + c.charCodeAt(0).toString(16).toUpperCase());
+                document.getElementById('urlResult').innerHTML = `
+                    <div style="margin-bottom: 10px;"><strong>完整URL编码结果（RFC 3986）：</strong></div>
+                    <div style="background: white; padding: 10px; border-radius: 5px; word-break: break-all;">${escapeHtml(encoded)}</div>
+                `;
+            } catch (e) {
+                showResult('urlResult', `编码失败: ${e.message}`, 'error');
+            }
+        }
+
+        // ==================== 时间戳转换 ====================
+        function timestampToDate() {
+            let ts = document.getElementById('timestampInput').value.trim();
+            if (!ts) { showResult('timestampResult', '请输入时间戳', 'error'); return; }
+            let timestamp = parseInt(ts);
+            if (isNaN(timestamp)) { showResult('timestampResult', '无效的时间戳', 'error'); return; }
+            // 自动判断秒/毫秒
+            if (timestamp < 10000000000) timestamp *= 1000;
+            const date = new Date(timestamp);
+            const result = `
+                <div><strong>日期时间：</strong>${date.toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai' })}</div>
+                <div style="margin-top: 5px;"><strong>UTC时间：</strong>${date.toISOString()}</div>
+                <div style="margin-top: 5px;"><strong>星期：</strong>${['星期日','星期一','星期二','星期三','星期四','星期五','星期六'][date.getDay()]}</div>
+                <div style="margin-top: 5px; font-size: 0.85rem; color: #666;">时间戳(秒): ${Math.floor(timestamp/1000)} | 时间戳(毫秒): ${timestamp}</div>
+            `;
+            document.getElementById('timestampResult').innerHTML = result;
+        }
+
+        function dateToTimestamp() {
+            const dateStr = document.getElementById('dateInput').value;
+            if (!dateStr) { showResult('timestampResult', '请选择日期时间', 'error'); return; }
+            const date = new Date(dateStr);
+            const tsSeconds = Math.floor(date.getTime() / 1000);
+            const tsMillis = date.getTime();
+            document.getElementById('timestampResult').innerHTML = `
+                <div><strong>时间戳(秒)：</strong>${tsSeconds}</div>
+                <div style="margin-top: 5px;"><strong>时间戳(毫秒)：</strong>${tsMillis}</div>
+                <div style="margin-top: 5px; font-size: 0.85rem; color: #666;">日期: ${date.toLocaleString('zh-CN')}</div>
+            `;
+        }
+
+        // ==================== 正则表达式测试 ====================
+        function testRegex() {
+            const pattern = document.getElementById('regexPattern').value;
+            const flags = document.getElementById('regexFlags').value;
+            const input = document.getElementById('regexInput').value;
+            if (!pattern) { showResult('regexResult', '请输入正则表达式', 'error'); return; }
+            try {
+                const regex = new RegExp(pattern, flags);
+                const matches = [...input.matchAll(regex)];
+                if (matches.length === 0) {
+                    document.getElementById('regexResult').innerHTML = '<div style="color: #666;">没有匹配结果</div>';
+                } else {
+                    let html = `<div style="color: #4CAF50; margin-bottom: 10px;">找到 ${matches.length} 个匹配：</div>`;
+                    matches.forEach((m, i) => {
+                        html += `<div style="background: white; padding: 8px; border-radius: 5px; margin-bottom: 5px;">
+                            <strong>#${i + 1}:</strong> "${escapeHtml(m[0])}" (位置: ${m.index})
+                            ${m.length > 1 ? '<br>捕获组: ' + [...m].slice(1).map((g, j) => `${j+1}="${escapeHtml(g || '')}"`).join(', ') : ''}
+                        </div>`;
+                    });
+                    document.getElementById('regexResult').innerHTML = html;
+                }
+            } catch (e) {
+                document.getElementById('regexResult').innerHTML = `<div class="regex-error"><i class="fas fa-exclamation-triangle"></i> 正则表达式错误: ${escapeHtml(e.message)}</div>`;
+            }
+        }
+
+        function highlightMatches() {
+            const pattern = document.getElementById('regexPattern').value;
+            const flags = document.getElementById('regexFlags').value;
+            const input = document.getElementById('regexInput').value;
+            if (!pattern || !input) { showResult('regexResult', '请输入正则表达式和测试文本', 'error'); return; }
+            try {
+                const regex = new RegExp(pattern, flags.includes('g') ? flags : flags + 'g');
+                const highlighted = input.replace(regex, match => `<span class="regex-match">${escapeHtml(match)}</span>`);
+                document.getElementById('regexResult').innerHTML = `
+                    <div style="margin-bottom: 10px;"><strong>高亮结果：</strong></div>
+                    <div style="background: white; padding: 15px; border-radius: 5px; line-height: 1.8;">${highlighted}</div>
+                `;
+            } catch (e) {
+                document.getElementById('regexResult').innerHTML = `<div class="regex-error">正则表达式错误: ${escapeHtml(e.message)}</div>`;
+            }
+        }
+
+        // ==================== 哈希生成器 ====================
+        async function generateHash() {
+            const input = document.getElementById('hashInput').value;
+            const hashType = document.getElementById('hashType').value;
+            if (!input) { showResult('hashResult', '请输入文本', 'error'); return; }
+            try {
+                const encoder = new TextEncoder();
+                const data = encoder.encode(input);
+                const hashBuffer = await crypto.subtle.digest(hashType, data);
+                const hashArray = Array.from(new Uint8Array(hashBuffer));
+                const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+                document.getElementById('hashResult').innerHTML = `
+                    <div style="margin-bottom: 10px;"><strong>${hashType} 哈希值：</strong></div>
+                    <div style="background: white; padding: 10px; border-radius: 5px; word-break: break-all; font-size: 0.85rem;">${hashHex}</div>
+                    <div style="margin-top: 10px; font-size: 0.85rem; color: #666;">长度: ${hashHex.length} 字符 (${hashBuffer.byteLength} 字节)</div>
+                `;
+            } catch (e) {
+                showResult('hashResult', `生成失败: ${e.message}`, 'error');
+            }
+        }
+
+        // ==================== 代码差异对比 ====================
+        function compareDiff() {
+            const original = document.getElementById('diffOriginal').value;
+            const modified = document.getElementById('diffModified').value;
+            if (!original && !modified) { showResult('diffResult', '请输入文本', 'error'); return; }
+            const origLines = original.split('\n');
+            const modLines = modified.split('\n');
+            // 简化LCS算法
+            const dp = Array(origLines.length + 1).fill(null).map(() => Array(modLines.length + 1).fill(0));
+            for (let i = 1; i <= origLines.length; i++) {
+                for (let j = 1; j <= modLines.length; j++) {
+                    if (origLines[i - 1] === modLines[j - 1]) {
+                        dp[i][j] = dp[i - 1][j - 1] + 1;
+                    } else {
+                        dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
+                    }
+                }
+            }
+            // 回溯
+            let i = origLines.length, j = modLines.length;
+            const result = [];
+            while (i > 0 || j > 0) {
+                if (i > 0 && j > 0 && origLines[i - 1] === modLines[j - 1]) {
+                    result.unshift({ type: 'unchanged', line: origLines[i - 1] });
+                    i--;
+                    j--;
+                } else if (j > 0 && (i === 0 || dp[i][j - 1] >= dp[i - 1][j])) {
+                    result.unshift({ type: 'added', line: modLines[j - 1] });
+                    j--;
+                } else {
+                    result.unshift({ type: 'removed', line: origLines[i - 1] });
+                    i--;
+                }
+            }
+            let html = '';
+            result.forEach(r => {
+                const prefix = r.type === 'added' ? '+ ' : r.type === 'removed' ? '- ' : '  ';
+                html += `<div class="diff-line diff-${r.type}">${prefix}${escapeHtml(r.line)}</div>`;
+            });
+            const addedCount = result.filter(r => r.type === 'added').length;
+            const removedCount = result.filter(r => r.type === 'removed').length;
+            document.getElementById('diffResult').innerHTML = `
+                <div style="margin-bottom: 10px; display: flex; gap: 20px;">
+                    <span style="color: #1a7f37;"><i class="fas fa-plus"></i> ${addedCount} 行添加</span>
+                    <span style="color: #cf222e;"><i class="fas fa-minus"></i> ${removedCount} 行删除</span>
+                </div>
+                <div style="background: white; border-radius: 5px; overflow: hidden;">${html}</div>
+            `;
+        }
+
+        function swapDiff() {
+            const orig = document.getElementById('diffOriginal').value;
+            const mod = document.getElementById('diffModified').value;
+            document.getElementById('diffOriginal').value = mod;
+            document.getElementById('diffModified').value = orig;
+            compareDiff();
+        }
+
+        // ==================== UUID/密码生成器 ====================
+        function generateUUID() {
+            const uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+                const r = Math.random() * 16 | 0;
+                const v = c === 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+            document.getElementById('uuidOutput').value = uuid;
+        }
+
+        function generatePassword() {
+            const length = parseInt(document.getElementById('passwordLength').value);
+            let charset = '';
+            if (document.getElementById('includeUpper').checked) charset += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            if (document.getElementById('includeLower').checked) charset += 'abcdefghijklmnopqrstuvwxyz';
+            if (document.getElementById('includeNumbers').checked) charset += '0123456789';
+            if (document.getElementById('includeSymbols').checked) charset += '!@#$%^&*()_+-=[]{}|;:,.<>?';
+            if (!charset) { showResult('passwordResult', '请至少选择一种字符类型', 'error'); return; }
+            let password = '';
+            const array = new Uint32Array(length);
+            crypto.getRandomValues(array);
+            for (let i = 0; i < length; i++) {
+                password += charset[array[i] % charset.length];
+            }
+            // 确保至少包含每种选中类型的一个字符
+            const types = [];
+            if (document.getElementById('includeUpper').checked) types.push(/[A-Z]/);
+            if (document.getElementById('includeLower').checked) types.push(/[a-z]/);
+            if (document.getElementById('includeNumbers').checked) types.push(/[0-9]/);
+            if (document.getElementById('includeSymbols').checked) types.push(/[!@#$%^&*()_+\-=\[\]{}|;:,.<>?]/);
+            const allTypesPresent = types.every(t => t.test(password));
+            document.getElementById('passwordResult').innerHTML = `
+                <div style="font-size: 1.3rem; font-family: monospace; word-break: break-all; background: white; padding: 15px; border-radius: 5px;">${escapeHtml(password)}</div>
+                <div style="margin-top: 10px; font-size: 0.85rem; color: #666;">
+                    长度: ${length} | 强度: ${getPasswordStrength(password)}
+                    ${!allTypesPresent ? ' | <span style="color: #f44336;">注意: 未包含所有选中类型</span>' : ''}
+                </div>
+            `;
+        }
+
+        function getPasswordStrength(password) {
+            let score = 0;
+            if (password.length >= 12) score++;
+            if (password.length >= 16) score++;
+            if (/[A-Z]/.test(password)) score++;
+            if (/[a-z]/.test(password)) score++;
+            if (/[0-9]/.test(password)) score++;
+            if (/[^A-Za-z0-9]/.test(password)) score++;
+            return score <= 2 ? '弱' : score <= 4 ? '中等' : '强';
+        }
+
+        function copyPassword() {
+            const text = document.getElementById('passwordResult').textContent.trim();
+            if (text && text !== '点击生成随机密码') {
+                const pw = text.split('\n')[0];
+                navigator.clipboard.writeText(pw).then(() => alert('密码已复制!'));
+            }
+        }
+
+        // ==================== 二维码生成器 ====================
+        let qrCodeInstance = null;
+        function generateQRCode() {
+            const input = document.getElementById('qrcodeInput').value.trim();
+            if (!input) { alert('请输入内容'); return; }
+            const size = parseInt(document.getElementById('qrcodeSize').value);
+            const container = document.getElementById('qrcodeContainer');
+            container.innerHTML = '';
+            qrCodeInstance = new QRCode(container, {
+                text: input,
+                width: size,
+                height: size,
+                colorDark: '#000000',
+                colorLight: '#ffffff',
+                correctLevel: QRCode.CorrectLevel.M
+            });
+            document.getElementById('downloadQRBtn').style.display = 'inline-block';
+        }
+
+        function downloadQRCode() {
+            const container = document.getElementById('qrcodeContainer');
+            const canvas = container.querySelector('canvas');
+            const img = container.querySelector('img');
+            if (canvas) {
+                const link = document.createElement('a');
+                link.href = canvas.toDataURL('image/png');
+                link.download = 'qrcode.png';
+                link.click();
+            } else if (img) {
+                const link = document.createElement('a');
+                link.href = img.src;
+                link.download = 'qrcode.png';
+                link.click();
+            }
+        }
+
         // ==================== 单位转换功能 ====================
         const conversionData = {
             currency: {
@@ -970,852 +1670,473 @@ int main() {
                 description: "以字节(Byte)为基准单位"
             }
         };
-        
+
         function changeConverterType() {
             const type = document.getElementById('converterType').value;
             const data = conversionData[type];
             const fromUnit = document.getElementById('fromUnit');
             const toUnit = document.getElementById('toUnit');
-            
             fromUnit.innerHTML = '';
             toUnit.innerHTML = '';
-            
             data.units.forEach(unit => {
-                const option1 = document.createElement('option');
-                option1.value = unit.id;
-                option1.textContent = unit.name;
-                fromUnit.appendChild(option1);
-                
-                const option2 = document.createElement('option');
-                option2.value = unit.id;
-                option2.textContent = unit.name;
-                toUnit.appendChild(option2);
+                const opt1 = document.createElement('option');
+                opt1.value = unit.id;
+                opt1.textContent = unit.name;
+                fromUnit.appendChild(opt1);
+                const opt2 = document.createElement('option');
+                opt2.value = unit.id;
+                opt2.textContent = unit.name;
+                toUnit.appendChild(opt2);
             });
-            
-            if (type === 'currency') {
-                fromUnit.value = 'CNY';
-                toUnit.value = 'USD';
-            } else if (type === 'temperature') {
-                fromUnit.value = 'C';
-                toUnit.value = 'F';
-            } else {
-                fromUnit.value = data.units[2]?.id || data.units[0].id;
-                toUnit.value = data.units[0].id;
-            }
-            
+            if (type === 'currency') { fromUnit.value = 'CNY';
+                toUnit.value = 'USD'; } else if (type === 'temperature') { fromUnit.value = 'C';
+                toUnit.value = 'F'; } else { fromUnit.value = data.units[2]?.id || data.units[0].id;
+                toUnit.value = data.units[0].id; }
             document.getElementById('unitDescription').textContent = data.description;
             convertUnits();
         }
-        
+
         function convertUnits() {
             const type = document.getElementById('converterType').value;
             const fromValue = parseFloat(document.getElementById('fromValue').value) || 0;
             const fromUnit = document.getElementById('fromUnit').value;
             const toUnit = document.getElementById('toUnit').value;
             const data = conversionData[type];
-            
             const fromUnitData = data.units.find(u => u.id === fromUnit);
             const toUnitData = data.units.find(u => u.id === toUnit);
-            
-            if (!fromUnitData || !toUnitData) {
-                document.getElementById('conversionResult').innerHTML = "单位数据错误";
-                return;
-            }
-            
+            if (!fromUnitData || !toUnitData) { document.getElementById('conversionResult').innerHTML = "单位数据错误"; return; }
             let result;
-            
             if (type === 'temperature') {
                 result = convertTemperature(fromValue, fromUnit, toUnit);
             } else {
-                const valueInBase = fromValue * fromUnitData.rate;
-                result = valueInBase / toUnitData.rate;
+                result = (fromValue * fromUnitData.rate) / toUnitData.rate;
             }
-            
-            const formattedResult = formatNumber(result);
-            const formattedFromValue = formatNumber(fromValue);
-            
             document.getElementById('conversionResult').innerHTML = `
                 <div style="font-size: 1.2rem; font-weight: bold; color: #D81B60; margin-bottom: 0.5rem;">
-                    ${formattedFromValue} ${fromUnitData.name} = ${formattedResult} ${toUnitData.name}
+                    ${formatNumber(fromValue)} ${fromUnitData.name} = ${formatNumber(result)} ${toUnitData.name}
                 </div>
-                <div style="color: #666; font-size: 0.9rem;">
-                    <i class="fas fa-info-circle"></i> ${conversionData[type].description}
-                </div>
+                <div style="color: #666; font-size: 0.9rem;"><i class="fas fa-info-circle"></i> ${conversionData[type].description}</div>
             `;
         }
-        
+
         function convertTemperature(value, fromUnit, toUnit) {
-            if (fromUnit === toUnit) return value;
-            
             let celsius;
-            switch (fromUnit) {
-                case 'C': celsius = value; break;
-                case 'F': celsius = (value - 32) * 5/9; break;
-                case 'K': celsius = value - 273.15; break;
-            }
-            
-            switch (toUnit) {
-                case 'C': return celsius;
-                case 'F': return (celsius * 9/5) + 32;
-                case 'K': return celsius + 273.15;
-            }
-            
+            switch (fromUnit) { case 'C': celsius = value; break;
+                case 'F': celsius = (value - 32) * 5 / 9; break;
+                case 'K': celsius = value - 273.15; break; }
+            switch (toUnit) { case 'C': return celsius;
+                case 'F': return (celsius * 9 / 5) + 32;
+                case 'K': return celsius + 273.15; }
             return 0;
         }
-        
+
         function formatNumber(num) {
-            if (Math.abs(num) < 0.000001) {
-                return num.toExponential(6);
-            } else if (Math.abs(num) < 0.01 || Math.abs(num) > 1000000) {
-                return num.toLocaleString('zh-CN', { 
-                    maximumFractionDigits: 6,
-                    minimumFractionDigits: 0
-                });
-            } else if (Math.abs(num) < 1) {
-                return num.toFixed(6).replace(/0+$/, '').replace(/\.$/, '');
-            } else {
-                return num.toLocaleString('zh-CN', { 
-                    maximumFractionDigits: 2,
-                    minimumFractionDigits: 0
-                });
-            }
+            if (Math.abs(num) < 0.000001) return num.toExponential(6);
+            if (Math.abs(num) < 0.01 || Math.abs(num) > 1000000) return num.toLocaleString('zh-CN', { maximumFractionDigits: 6,
+                minimumFractionDigits: 0 });
+            if (Math.abs(num) < 1) return num.toFixed(6).replace(/0+$/, '').replace(/\.$/, '');
+            return num.toLocaleString('zh-CN', { maximumFractionDigits: 2, minimumFractionDigits: 0 });
         }
-        
+
         // ==================== 画图板功能 ====================
-        let canvas, ctx;
-        let isDrawing = false;
-        let currentTool = 'pencil';
-        let currentColor = '#000000';
-        let brushSize = 3;
-        let brushOpacity = 1;
-        let startX, startY;
-        let lastX = 0, lastY = 0;
-        let drawingHistory = [];
-        let historyIndex = -1;
-        
+        let canvas, ctx, isDrawing = false,
+            currentTool = 'pencil',
+            currentColor = '#000000',
+            brushSize = 3,
+            brushOpacity = 1,
+            startX, startY, lastX = 0,
+            lastY = 0,
+            drawingHistory = [],
+            historyIndex = -1;
+
         function initDrawing() {
             canvas = document.getElementById('drawingCanvas');
             ctx = canvas.getContext('2d');
-            
-            // 设置画布大小
             resizeCanvas();
-            
-            // 清空画布
             clearCanvas();
-            
-            // 设置事件监听
-            setupEventListeners();
-            
-            // 更新控制显示
-            updateControls();
-            
-            // 保存初始状态
+            setupDrawingEvents();
             saveToHistory();
         }
-        
+
         function resizeCanvas() {
             const container = canvas.parentElement;
             canvas.width = container.clientWidth;
             canvas.height = container.clientHeight;
         }
-        
-        function setupEventListeners() {
-            // 工具选择
+
+        function setupDrawingEvents() {
             document.querySelectorAll('.drawing-tool').forEach(tool => {
                 tool.addEventListener('click', function() {
-                    document.querySelectorAll('.drawing-tool').forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.drawing-tool').forEach(t => t.classList.remove(
+                        'active'));
                     this.classList.add('active');
                     currentTool = this.getAttribute('data-tool');
-                    updateToolName();
+                    document.getElementById('currentToolName').textContent = { 'pencil': '画笔', 'line': '直线',
+                        'rectangle': '矩形', 'circle': '圆形', 'text': '文本', 'eraser': '橡皮擦' } [
+                        currentTool] || currentTool;
                 });
             });
-            
-            // 颜色选择
             document.querySelectorAll('.color-option').forEach(color => {
                 color.addEventListener('click', function() {
-                    document.querySelectorAll('.color-option').forEach(c => c.classList.remove('active'));
+                    document.querySelectorAll('.color-option').forEach(c => c.classList.remove(
+                        'active'));
                     this.classList.add('active');
                     currentColor = this.getAttribute('data-color');
                     document.getElementById('currentColorName').textContent = currentColor;
                 });
             });
-            
-            // 画笔设置
-            document.getElementById('brushSize').addEventListener('input', function() {
-                brushSize = parseInt(this.value);
-                document.getElementById('brushSizeValue').textContent = brushSize;
-            });
-            
-            document.getElementById('brushOpacity').addEventListener('input', function() {
-                brushOpacity = parseFloat(this.value);
-                document.getElementById('opacityValue').textContent = brushOpacity.toFixed(1);
-            });
-            
-            // 鼠标事件
+            document.getElementById('brushSize').addEventListener('input', function() { brushSize = parseInt(this
+                    .value);
+                document.getElementById('brushSizeValue').textContent = brushSize; });
+            document.getElementById('brushOpacity').addEventListener('input', function() { brushOpacity = parseFloat(
+                    this.value);
+                document.getElementById('opacityValue').textContent = brushOpacity.toFixed(1); });
             canvas.addEventListener('mousedown', startDrawing);
             canvas.addEventListener('mousemove', draw);
             canvas.addEventListener('mouseup', stopDrawing);
             canvas.addEventListener('mouseout', stopDrawing);
-            
-            // 触摸事件
             canvas.addEventListener('touchstart', handleTouchStart);
             canvas.addEventListener('touchmove', handleTouchMove);
             canvas.addEventListener('touchend', handleTouchEnd);
-            
-            // 窗口大小变化
-            window.addEventListener('resize', function() {
-                resizeCanvas();
-                redrawFromHistory();
-            });
-            
-            // 鼠标位置追踪
             canvas.addEventListener('mousemove', function(e) {
                 const rect = canvas.getBoundingClientRect();
-                const x = Math.round(e.clientX - rect.left);
-                const y = Math.round(e.clientY - rect.top);
-                document.getElementById('mouseX').textContent = x;
-                document.getElementById('mouseY').textContent = y;
+                document.getElementById('mouseX').textContent = Math.round(e.clientX - rect.left);
+                document.getElementById('mouseY').textContent = Math.round(e.clientY - rect.top);
             });
+            window.addEventListener('resize', function() { resizeCanvas();
+                redrawFromHistory(); });
         }
-        
-        function updateToolName() {
-            const toolNames = {
-                'pencil': '画笔',
-                'line': '直线',
-                'rectangle': '矩形',
-                'circle': '圆形',
-                'text': '文本',
-                'eraser': '橡皮擦'
-            };
-            document.getElementById('currentToolName').textContent = toolNames[currentTool] || currentTool;
-        }
-        
-        function updateControls() {
-            document.getElementById('brushSizeValue').textContent = brushSize;
-            document.getElementById('opacityValue').textContent = brushOpacity.toFixed(1);
-            document.getElementById('currentColorName').textContent = currentColor;
-        }
-        
-        function getMousePosition(e) {
+
+        function getMousePos(e) {
             const rect = canvas.getBoundingClientRect();
-            let x, y;
-            
-            if (e.type.includes('touch')) {
-                x = e.touches[0].clientX - rect.left;
-                y = e.touches[0].clientY - rect.top;
-            } else {
-                x = e.clientX - rect.left;
-                y = e.clientY - rect.top;
-            }
-            
-            return { x, y };
+            if (e.type.includes('touch')) return { x: e.touches[0].clientX - rect.left, y: e.touches[0].clientY - rect
+                    .top };
+            return { x: e.clientX - rect.left, y: e.clientY - rect.top };
         }
-        
+
         function startDrawing(e) {
             e.preventDefault();
             isDrawing = true;
-            const pos = getMousePosition(e);
+            const pos = getMousePos(e);
             startX = pos.x;
             startY = pos.y;
             lastX = startX;
             lastY = startY;
-            
-            if (currentTool === 'text') {
-                addText(startX, startY);
-                isDrawing = false;
-            } else if (currentTool !== 'pencil' && currentTool !== 'eraser') {
-                saveToHistory();
-            }
-            
+            if (currentTool === 'text') { addText(startX, startY);
+                isDrawing = false; } else if (currentTool !== 'pencil' && currentTool !== 'eraser') { saveToHistory(); }
             ctx.beginPath();
         }
-        
+
         function draw(e) {
             if (!isDrawing) return;
-            
             e.preventDefault();
-            const pos = getMousePosition(e);
-            const x = pos.x;
-            const y = pos.y;
-            
+            const pos = getMousePos(e);
             ctx.globalAlpha = brushOpacity;
             ctx.lineWidth = brushSize;
             ctx.lineCap = 'round';
             ctx.lineJoin = 'round';
-            
-            switch (currentTool) {
-                case 'pencil':
-                    drawPencil(x, y);
-                    break;
-                case 'line':
-                    drawLinePreview(startX, startY, x, y);
-                    break;
-                case 'rectangle':
-                    drawRectanglePreview(startX, startY, x, y);
-                    break;
-                case 'circle':
-                    drawCirclePreview(startX, startY, x, y);
-                    break;
-                case 'eraser':
-                    drawEraser(x, y);
-                    break;
-            }
-            
-            lastX = x;
-            lastY = y;
+            switch (currentTool) { case 'pencil':
+                    drawPencil(pos.x, pos.y); break; case 'line':
+                    drawLinePreview(startX, startY, pos.x, pos.y); break; case 'rectangle':
+                    drawRectPreview(startX, startY, pos.x, pos.y); break; case 'circle':
+                    drawCirclePreview(startX, startY, pos.x, pos.y); break; case 'eraser':
+                    drawEraser(pos.x, pos.y); break; }
+            lastX = pos.x;
+            lastY = pos.y;
         }
-        
+
         function stopDrawing() {
             if (!isDrawing) return;
             isDrawing = false;
-            
-            if (currentTool === 'line' || currentTool === 'rectangle' || currentTool === 'circle') {
-                const endX = lastX;
-                const endY = lastY;
-                
-                // 清除画布并从历史记录恢复
+            if (['line', 'rectangle', 'circle'].includes(currentTool)) {
+                const endX = lastX,
+                    endY = lastY;
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-                
                 if (historyIndex >= 0) {
                     const img = new Image();
                     img.onload = function() {
                         ctx.drawImage(img, 0, 0);
-                        
                         ctx.globalAlpha = brushOpacity;
                         ctx.lineWidth = brushSize;
-                        
-                        switch (currentTool) {
-                            case 'line':
-                                drawFinalLine(startX, startY, endX, endY);
-                                break;
-                            case 'rectangle':
-                                drawFinalRectangle(startX, startY, endX, endY);
-                                break;
-                            case 'circle':
-                                drawFinalCircle(startX, startY, endX, endY);
-                                break;
-                        }
-                        
+                        switch (currentTool) { case 'line':
+                                drawFinalLine(startX, startY, endX, endY); break; case 'rectangle':
+                                drawFinalRect(startX, startY, endX, endY); break; case 'circle':
+                                drawFinalCircle(startX, startY, endX, endY); break; }
                         saveToHistory();
                     };
                     img.src = drawingHistory[historyIndex];
                 }
-            } else if (currentTool === 'pencil' || currentTool === 'eraser') {
-                saveToHistory();
-            }
+            } else if (['pencil', 'eraser'].includes(currentTool)) { saveToHistory(); }
         }
-        
-        function drawPencil(x, y) {
-            ctx.beginPath();
+
+        function drawPencil(x, y) { ctx.beginPath();
             ctx.moveTo(lastX, lastY);
             ctx.lineTo(x, y);
             ctx.strokeStyle = currentColor;
-            ctx.stroke();
-        }
-        
-        function drawLinePreview(x1, y1, x2, y2) {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            if (historyIndex >= 0) {
-                const img = new Image();
-                img.onload = function() {
-                    ctx.drawImage(img, 0, 0);
-                    
+            ctx.stroke(); }
+
+        function drawLinePreview(x1, y1, x2, y2) { ctx.clearRect(0, 0, canvas.width, canvas.height); if (historyIndex >= 0) { const img =
+                    new Image();
+                img.onload = function() { ctx.drawImage(img, 0, 0);
                     ctx.beginPath();
                     ctx.setLineDash([5, 5]);
                     ctx.moveTo(x1, y1);
                     ctx.lineTo(x2, y2);
                     ctx.strokeStyle = currentColor;
                     ctx.stroke();
-                    ctx.setLineDash([]);
-                };
-                img.src = drawingHistory[historyIndex];
-            }
-        }
-        
-        function drawFinalLine(x1, y1, x2, y2) {
-            ctx.beginPath();
+                    ctx.setLineDash([]); };
+                img.src = drawingHistory[historyIndex]; } }
+
+        function drawFinalLine(x1, y1, x2, y2) { ctx.beginPath();
             ctx.moveTo(x1, y1);
             ctx.lineTo(x2, y2);
             ctx.strokeStyle = currentColor;
-            ctx.stroke();
-        }
-        
-        function drawRectanglePreview(x1, y1, x2, y2) {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            if (historyIndex >= 0) {
-                const img = new Image();
-                img.onload = function() {
-                    ctx.drawImage(img, 0, 0);
-                    
+            ctx.stroke(); }
+
+        function drawRectPreview(x1, y1, x2, y2) { ctx.clearRect(0, 0, canvas.width, canvas.height); if (historyIndex >= 0) { const img =
+                    new Image();
+                img.onload = function() { ctx.drawImage(img, 0, 0);
                     ctx.beginPath();
                     ctx.setLineDash([5, 5]);
                     ctx.rect(x1, y1, x2 - x1, y2 - y1);
                     ctx.strokeStyle = currentColor;
                     ctx.stroke();
-                    ctx.setLineDash([]);
-                };
-                img.src = drawingHistory[historyIndex];
-            }
-        }
-        
-        function drawFinalRectangle(x1, y1, x2, y2) {
-            ctx.beginPath();
+                    ctx.setLineDash([]); };
+                img.src = drawingHistory[historyIndex]; } }
+
+        function drawFinalRect(x1, y1, x2, y2) { ctx.beginPath();
             ctx.rect(x1, y1, x2 - x1, y2 - y1);
             ctx.strokeStyle = currentColor;
-            ctx.stroke();
-        }
-        
-        function drawCirclePreview(x1, y1, x2, y2) {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            if (historyIndex >= 0) {
-                const img = new Image();
-                img.onload = function() {
-                    ctx.drawImage(img, 0, 0);
-                    
-                    const radius = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
-                    
+            ctx.stroke(); }
+
+        function drawCirclePreview(x1, y1, x2, y2) { ctx.clearRect(0, 0, canvas.width, canvas.height); if (historyIndex >= 0) { const img =
+                    new Image();
+                img.onload = function() { ctx.drawImage(img, 0, 0);
+                    const r = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
                     ctx.beginPath();
                     ctx.setLineDash([5, 5]);
-                    ctx.arc(x1, y1, radius, 0, Math.PI * 2);
+                    ctx.arc(x1, y1, r, 0, Math.PI * 2);
                     ctx.strokeStyle = currentColor;
                     ctx.stroke();
-                    ctx.setLineDash([]);
-                };
-                img.src = drawingHistory[historyIndex];
-            }
-        }
-        
-        function drawFinalCircle(x1, y1, x2, y2) {
-            const radius = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
-            
+                    ctx.setLineDash([]); };
+                img.src = drawingHistory[historyIndex]; } }
+
+        function drawFinalCircle(x1, y1, x2, y2) { const r = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
             ctx.beginPath();
-            ctx.arc(x1, y1, radius, 0, Math.PI * 2);
+            ctx.arc(x1, y1, r, 0, Math.PI * 2);
             ctx.strokeStyle = currentColor;
-            ctx.stroke();
-        }
-        
-        function drawEraser(x, y) {
-            ctx.beginPath();
+            ctx.stroke(); }
+
+        function drawEraser(x, y) { ctx.beginPath();
             ctx.arc(x, y, brushSize, 0, Math.PI * 2);
             ctx.fillStyle = '#ffffff';
-            ctx.fill();
-        }
-        
-        function addText(x, y) {
-            const text = prompt('请输入文本内容:', '文本');
-            if (text && text.trim()) {
-                saveToHistory();
-                
+            ctx.fill(); }
+
+        function addText(x, y) { const text = prompt('请输入文本内容:', '文本'); if (text && text.trim()) { saveToHistory();
                 ctx.globalAlpha = brushOpacity;
                 ctx.fillStyle = currentColor;
                 ctx.font = `${brushSize * 5}px Arial`;
                 ctx.fillText(text, x, y);
-                
-                saveToHistory();
-            }
-        }
-        
-        function clearCanvas() {
-            ctx.fillStyle = '#ffffff';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-        }
-        
-        function clearDrawing() {
-            if (confirm('确定要清空整个画布吗？')) {
-                clearCanvas();
+                saveToHistory(); } }
+
+        function clearCanvas() { ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, canvas.width, canvas.height); }
+
+        function clearDrawing() { if (confirm('确定要清空整个画布吗？')) { clearCanvas();
                 drawingHistory = [];
                 historyIndex = -1;
-                saveToHistory();
-            }
-        }
-        
-        function saveDrawing() {
-            const dataURL = canvas.toDataURL('image/png');
+                saveToHistory(); } }
+
+        function saveDrawing() { const dataURL = canvas.toDataURL('image/png');
             const link = document.createElement('a');
             link.href = dataURL;
             link.download = '我的绘画.png';
-            document.body.appendChild(link);
             link.click();
-            document.body.removeChild(link);
-            
-            alert('图片已保存为"我的绘画.png"');
-        }
-        
-        function undoDrawing() {
-            if (historyIndex > 0) {
-                historyIndex--;
-                const img = new Image();
-                img.onload = function() {
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
-                    ctx.drawImage(img, 0, 0);
-                };
-                img.src = drawingHistory[historyIndex];
-            } else if (historyIndex === 0) {
-                clearCanvas();
-                historyIndex = -1;
-            }
-        }
-        
-        function saveToHistory() {
-            const dataURL = canvas.toDataURL();
+            alert('图片已保存!'); }
+
+        function undoDrawing() { if (historyIndex > 0) { historyIndex--; const img = new Image();
+                img.onload = function() { ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    ctx.drawImage(img, 0, 0); };
+                img.src = drawingHistory[historyIndex]; } else if (historyIndex === 0) { clearCanvas();
+                historyIndex = -1; } }
+
+        function saveToHistory() { const dataURL = canvas.toDataURL();
             drawingHistory = drawingHistory.slice(0, historyIndex + 1);
             drawingHistory.push(dataURL);
-            historyIndex = drawingHistory.length - 1;
-            
-            if (drawingHistory.length > 20) {
-                drawingHistory.shift();
-                historyIndex--;
-            }
-        }
-        
-        function redrawFromHistory() {
-            if (historyIndex >= 0) {
-                const img = new Image();
-                img.onload = function() {
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
-                    ctx.drawImage(img, 0, 0);
-                };
-                img.src = drawingHistory[historyIndex];
-            } else {
-                clearCanvas();
-            }
-        }
-        
-        function handleTouchStart(e) {
-            e.preventDefault();
-            const touch = e.touches[0];
-            const mouseEvent = new MouseEvent('mousedown', {
-                clientX: touch.clientX,
-                clientY: touch.clientY
-            });
-            canvas.dispatchEvent(mouseEvent);
-        }
-        
-        function handleTouchMove(e) {
-            e.preventDefault();
-            const touch = e.touches[0];
-            const mouseEvent = new MouseEvent('mousemove', {
-                clientX: touch.clientX,
-                clientY: touch.clientY
-            });
-            canvas.dispatchEvent(mouseEvent);
-        }
-        
-        function handleTouchEnd(e) {
-            e.preventDefault();
-            const mouseEvent = new MouseEvent('mouseup', {});
-            canvas.dispatchEvent(mouseEvent);
-        }
-        
+            historyIndex = drawingHistory.length - 1; if (drawingHistory.length > 20) { drawingHistory.shift();
+                historyIndex--; } }
+
+        function redrawFromHistory() { if (historyIndex >= 0) { const img = new Image();
+                img.onload = function() { ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    ctx.drawImage(img, 0, 0); };
+                img.src = drawingHistory[historyIndex]; } else { clearCanvas(); } }
+
+        function handleTouchStart(e) { e.preventDefault();
+            canvas.dispatchEvent(new MouseEvent('mousedown', { clientX: e.touches[0].clientX, clientY: e.touches[0]
+                    .clientY })); }
+
+        function handleTouchMove(e) { e.preventDefault();
+            canvas.dispatchEvent(new MouseEvent('mousemove', { clientX: e.touches[0].clientX, clientY: e.touches[0]
+                    .clientY })); }
+
+        function handleTouchEnd(e) { e.preventDefault();
+            canvas.dispatchEvent(new MouseEvent('mouseup')); }
+
         // ==================== Base64编码/解码 ====================
-        function encodeBase64() {
-            const input = document.getElementById('base64Input').value;
-            if (!input.trim()) {
-                document.getElementById('base64Result').innerHTML = '<div style="color: #f44336;">请输入要编码的文本</div>';
-                return;
-            }
-            try {
-                const encoded = btoa(unescape(encodeURIComponent(input)));
-                document.getElementById('base64Result').innerHTML = `
-                    <div style="margin-bottom: 10px;">
-                        <strong>编码结果（Base64）：</strong>
-                    </div>
-                    <div style="background-color: white; padding: 10px; border-radius: 5px; border: 1px solid #ddd; word-break: break-all;">
-                        ${encoded}
-                    </div>
-                    <div style="margin-top: 10px; font-size: 0.9rem; color: #666;">
-                        <i class="fas fa-info-circle"></i> 编码完成
-                    </div>
-                `;
-            } catch (error) {
-                document.getElementById('base64Result').innerHTML = `<div style="color: #f44336;">编码失败：${error.message}</div>`;
-            }
-        }
-        
-        function decodeBase64() {
-            const input = document.getElementById('base64Input').value.trim();
-            if (!input) {
-                document.getElementById('base64Result').innerHTML = '<div style="color: #f44336;">请输入要解码的Base64字符串</div>';
-                return;
-            }
-            try {
-                const decoded = decodeURIComponent(escape(atob(input)));
-                document.getElementById('base64Result').innerHTML = `
-                    <div style="margin-bottom: 10px;">
-                        <strong>解码结果：</strong>
-                    </div>
-                    <div style="background-color: white; padding: 10px; border-radius: 5px; border: 1px solid #ddd; word-break: break-all;">
-                        ${decoded}
-                    </div>
-                    <div style="margin-top: 10px; font-size: 0.9rem; color: #666;">
-                        <i class="fas fa-info-circle"></i> 解码完成
-                    </div>
-                `;
-            } catch (error) {
-                document.getElementById('base64Result').innerHTML = `<div style="color: #f44336;">解码失败：无效的Base64字符串</div>`;
-            }
-        }
-        
+        function encodeBase64() { const input = document.getElementById('base64Input').value; if (!input.trim()) { showResult(
+                'base64Result', '请输入要编码的文本', 'error'); return; } try { const encoded = btoa(unescape(
+                encodeURIComponent(input)));
+            document.getElementById('base64Result').innerHTML = `
+                <div style="margin-bottom: 10px;"><strong>编码结果：</strong></div>
+                <div style="background: white; padding: 10px; border-radius: 5px; word-break: break-all;">${escapeHtml(encoded)}</div>
+            `; } catch (e) { showResult('base64Result', `编码失败: ${e.message}`, 'error'); } }
+
+        function decodeBase64() { const input = document.getElementById('base64Input').value.trim(); if (!input) { showResult(
+                'base64Result', '请输入要解码的Base64字符串', 'error'); return; } try { const decoded = decodeURIComponent(
+                escape(atob(input)));
+            document.getElementById('base64Result').innerHTML = `
+                <div style="margin-bottom: 10px;"><strong>解码结果：</strong></div>
+                <div style="background: white; padding: 10px; border-radius: 5px; word-break: break-all;">${escapeHtml(decoded)}</div>
+            `; } catch (e) { showResult('base64Result', '解码失败：无效的Base64字符串', 'error'); } }
+
         // ==================== 商品价格排序器 ====================
-        function sortPrices() {
-            const input = document.getElementById('priceInput').value;
-            const sortOrder = document.getElementById('sortOrder').value;
-            const lines = input.split('\n').filter(line => line.trim() !== '');
-            const priceData = [];
-            
-            lines.forEach(line => {
-                const priceInfo = extractPrice(line);
-                if (priceInfo) {
-                    priceData.push({
-                        name: priceInfo.name,
-                        price: priceInfo.price,
-                        originalLine: line.trim()
-                    });
-                }
-            });
-            
-            if (sortOrder === 'asc') {
-                priceData.sort((a, b) => a.price - b.price);
-            } else {
-                priceData.sort((a, b) => b.price - a.price);
-            }
-            
-            let resultHTML = `<h4>排序结果（${sortOrder === 'asc' ? '从低到高' : '从高到低'}）：</h4>`;
-            if (priceData.length === 0) {
-                resultHTML += '<p style="color: #f44336;">未找到有效的价格数据</p>';
-                resultHTML += '<p style="color: #666; font-size: 0.9rem;">建议格式: 商品名称 价格 (如: 特斯拉 Model 3 289,900)</p>';
-            } else {
-                resultHTML += '<ul class="price-list">';
-                priceData.forEach((item, index) => {
-                    const formattedPrice = item.price.toLocaleString('zh-CN');
-                    resultHTML += `
-                        <li class="price-item ${index < 3 ? 'sorted' : ''}">
-                            <span>${index + 1}. ${item.name}</span>
-                            <strong>¥${formattedPrice}</strong>
-                        </li>`;
-                });
-                resultHTML += '</ul>';
-                resultHTML += `<p style="color: #666; font-size: 0.9rem; margin-top: 1rem;">成功解析 ${priceData.length} 个商品</p>`;
-            }
-            
-            document.getElementById('priceResult').innerHTML = resultHTML;
-        }
-        
-        function extractPrice(line) {
-            const numberPattern = /\d[\d,]*\.?\d*/g;
-            const matches = line.match(numberPattern);
-            if (!matches || matches.length === 0) return null;
-            
-            const candidates = matches.map((match, index) => {
-                let score = 0;
-                const priceValue = parseFloat(match.replace(/,/g, ''));
-                if (match.includes(',')) score += 30;
-                if (priceValue > 100) score += 20;
-                if (priceValue > 1000) score += 10;
-                if (priceValue > 10000) score += 10;
-                
-                const position = line.lastIndexOf(match);
-                const distanceFromEnd = line.length - (position + match.length);
-                if (distanceFromEnd < 5) score += 25;
-                
-                const beforePrice = line.substring(0, position).trim();
-                if (beforePrice.endsWith('¥') || beforePrice.endsWith('$') || 
-                    beforePrice.endsWith('€') || beforePrice.endsWith('£')) {
-                    score += 40;
-                }
-                
-                const lowerBefore = beforePrice.toLowerCase();
-                if (lowerBefore.includes('价格') || lowerBefore.includes('售价') || 
-                    lowerBefore.includes('报价') || beforePrice.endsWith('元') ||
-                    lowerBefore.includes('刀') || lowerBefore.includes('$')) {
-                    score += 15;
-                }
-                
-                return {
-                    match: match,
-                    position: position,
-                    score: score,
-                    value: priceValue
-                };
-            });
-            
-            candidates.sort((a, b) => b.score - a.score);
-            const bestCandidate = candidates[0];
-            if (bestCandidate.score < 30) return null;
-            
-            const priceStart = bestCandidate.position;
-            let itemName = line.substring(0, priceStart).trim();
-            itemName = itemName.replace(/[¥$€£]?\s*[:：]?\s*$/g, '');
-            
-            return {
-                name: itemName || '未命名商品',
-                price: bestCandidate.value
-            };
-        }
-        
+        function sortPrices() { const input = document.getElementById('priceInput').value; const sortOrder = document
+                .getElementById('sortOrder').value; const lines = input.split('\n').filter(l => l.trim()); const priceData =
+                [];
+            lines.forEach(line => { const info = extractPrice(line); if (info) priceData.push(info); }); if (sortOrder ===
+                'asc') priceData.sort((a, b) => a.price - b.price); else priceData.sort((a, b) => b.price - a.price); let
+                html = `<h4>排序结果（${sortOrder === 'asc' ? '从低到高' : '从高到低'}）：</h4>`; if (priceData.length === 0) { html +=
+                    '<p style="color: #f44336;">未找到有效价格</p>'; } else { html += '<ul class="price-list">';
+                priceData.forEach((item, i) => { html +=
+                        `<li class="price-item ${i < 3 ? 'sorted' : ''}"><span>${i+1}. ${item.name}</span><strong>¥${item.price.toLocaleString('zh-CN')}</strong></li>`; });
+                html += '</ul>'; }
+            document.getElementById('priceResult').innerHTML = html; }
+
+        function extractPrice(line) { const matches = line.match(/\d[\d,]*\.?\d*/g); if (!matches) return null; const
+                candidates = matches.map((m, i) => { const v = parseFloat(m.replace(/,/g, '')); let score = 0; if (m
+                    .includes(',')) score += 30; if (v > 100) score += 20; if (v > 1000) score += 10; if (v > 10000)
+                    score += 10; const pos = line.lastIndexOf(m); if (line.length - (pos + m.length) < 5) score +=
+                    25; const before = line.substring(0, pos).trim(); if (before.endsWith('¥') || before.endsWith(
+                        '$') || before.endsWith('€')) score += 40; if (/价格|售价|报价/.test(before) || before.endsWith(
+                        '元')) score += 15; return { match: m, position: pos, score, value: v }; });
+            candidates.sort((a, b) => b.score - a.score); const best = candidates[0]; if (best.score < 30) return null; let
+                name = line.substring(0, best.position).trim().replace(/[¥$€£]?\s*[:：]?\s*$/g, ''); return { name: name ||
+                    '未命名商品', price: best.value }; }
+
         // ==================== C++代码编辑器 ====================
-        function formatCppCode() {
-            const codeInput = document.getElementById('codeInput');
-            let code = codeInput.value;
-            
-            const lines = code.split('\n');
-            let indentLevel = 0;
-            const formattedLines = [];
-            
-            for (let i = 0; i < lines.length; i++) {
-                let line = lines[i].trimEnd();
-                const trimmedLine = line.trim();
-                
-                if (trimmedLine.startsWith('}') || trimmedLine.startsWith('} else') || 
-                    trimmedLine.endsWith('break;') || trimmedLine.endsWith('continue;') ||
-                    trimmedLine.endsWith('return;')) {
-                    indentLevel = Math.max(0, indentLevel - 1);
-                }
-                
-                const indent = '    '.repeat(indentLevel);
-                line = indent + line.trimStart();
-                formattedLines.push(line);
-                
-                if (trimmedLine.endsWith('{') || trimmedLine.startsWith('class') || 
-                    trimmedLine.startsWith('struct') || trimmedLine.startsWith('namespace') ||
-                    trimmedLine.startsWith('public:') || trimmedLine.startsWith('private:') ||
-                    trimmedLine.startsWith('protected:') || (trimmedLine.startsWith('if') && !trimmedLine.includes('{')) ||
-                    (trimmedLine.startsWith('for') && !trimmedLine.includes('{')) ||
-                    (trimmedLine.startsWith('while') && !trimmedLine.includes('{')) ||
-                    trimmedLine.startsWith('else')) {
-                    indentLevel++;
-                }
-                
-                if (trimmedLine.startsWith('case') || trimmedLine.startsWith('default:')) {
-                    indentLevel = Math.max(1, indentLevel);
-                }
-            }
-            
-            codeInput.value = formattedLines.join('\n');
+        function formatCppCode() { let code = document.getElementById('codeInput').value; const lines = code.split('\n'); let
+                indent = 0; const formatted = [];
+            lines.forEach(line => { const t = line.trimEnd().trim(); if (t.startsWith('}') || t.startsWith('} else') || t
+                    .endsWith('break;') || t.endsWith('continue;') || t.endsWith('return;')) indent = Math.max(0,
+                    indent - 1);
+                formatted.push('    '.repeat(indent) + line.trimStart()); if (t.endsWith('{') || t.startsWith('class') || t
+                    .startsWith('struct') || t.startsWith('namespace') || t.startsWith('public:') || t.startsWith(
+                        'private:') || t.startsWith('protected:') || (t.startsWith('if') && !t.includes('{')) || (t
+                    .startsWith('for') && !t.includes('{')) || (t.startsWith('while') && !t.includes('{')) || t
+                    .startsWith('else')) indent++; if (t.startsWith('case') || t.startsWith('default:')) indent = Math
+                    .max(1, indent); });
+            document.getElementById('codeInput').value = formatted.join('\n');
             updateCodeStats();
-            alert('代码已格式化！');
-        }
-        
-        function clearCode() {
-            if (confirm('确定要清空所有代码吗？')) {
-                document.getElementById('codeInput').value = '';
-                updateCodeStats();
-            }
-        }
-        
-        function saveCppCode() {
-            const code = document.getElementById('codeInput').value;
-            const blob = new Blob([code], { type: 'text/plain' });
-            const url = URL.createObjectURL(blob);
-            
+            alert('代码已格式化!'); }
+
+        function clearCode() { if (confirm('确定要清空所有代码吗？')) { document.getElementById('codeInput').value = '';
+                updateCodeStats(); } }
+
+        function saveCppCode() { const blob = new Blob([document.getElementById('codeInput').value], { type: 'text/plain' });
             const a = document.createElement('a');
-            a.href = url;
+            a.href = URL.createObjectURL(blob);
             a.download = 'code.cpp';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-            
-            alert('代码已保存为 code.cpp');
-        }
-        
-        function updateCodeStats() {
-            const code = document.getElementById('codeInput').value;
-            const lines = code.split('\n').length;
-            const chars = code.length;
-            
-            document.getElementById('codeLineCount').textContent = lines;
-            document.getElementById('codeCharCount').textContent = chars;
-        }
-        
+            a.click(); }
+
+        function updateCodeStats() { const code = document.getElementById('codeInput').value;
+            document.getElementById('codeLineCount').textContent = code.split('\n').length;
+            document.getElementById('codeCharCount').textContent = code.length; }
+
         // ==================== 特殊字符表 ====================
-        const charData = {
-            math: ['∑', '∫', '∏', '√', '∞', '≠', '≈', '≤', '≥', '±', '×', '÷', '∂', '∆', '∇', '∅', '∈', '∉', '∩', '∪', '⊂', '⊃', '⊆', '⊇', '∧', '∨', '∀', '∃', '∴', '∵'],
-            currency: ['$', '€', '£', '¥', '¢', '₩', '₹', '₽', '₿', '₺', '₴', '₸', '₮', '₦', '₱', '฿', '៛', '₫', '₭', '₲', '₵', '₡', '₢', '₤', '₥', '₧', '₨', '₪'],
-            arrow: ['←', '→', '↑', '↓', '↔', '↕', '⇄', '⇅', '⇆', '⇇', '⇈', '⇉', '⇊', '↶', '↷', '↺', '↻', '↰', '↱', '↲', '↳', '↵', '↴', '↵', '↩', '↪', '↫', '↬', '↭', '↮'],
-            emoji: ['😀', '😂', '🤣', '😊', '😍', '🥰', '😎', '🤩', '🥳', '😜', '🤪', '😇', '🥺', '😢', '😭', '😡', '🤬', '🤯', '🥶', '😱', '🤔', '😴', '🥱', '😈', '👻', '💀', '👽', '🤖', '💩', '🎃'],
-            tech: ['⌘', '⌥', '⌃', '⇧', '⇪', '⌫', '⌦', '↩', '⏎', '⎋', '⇥', '⏏', '⏭', '⏮', '⏯', '⏹', '⏺', '⏏', '⏩', '⏪', '⏫', '⏬', '◀', '▶', '▲', '▼', '◆', '■', '○', '●']
-        };
-        
-        function updateCharTable() {
-            const category = document.getElementById('charCategory').value;
-            const chars = charData[category] || [];
-            const charTable = document.getElementById('charTable');
-            charTable.innerHTML = '';
-            
-            chars.forEach(char => {
-                const charItem = document.createElement('div');
-                charItem.className = 'char-item';
-                charItem.textContent = char;
-                charItem.title = `点击复制: ${char}`;
-                charItem.onclick = () => {
-                    navigator.clipboard.writeText(char).then(() => {
-                        document.getElementById('copiedChar').value = char;
-                        charItem.style.backgroundColor = '#4CAF50';
-                        charItem.style.color = 'white';
-                        setTimeout(() => {
-                            charItem.style.backgroundColor = '';
-                            charItem.style.color = '';
-                        }, 500);
-                    });
-                };
-                charTable.appendChild(charItem);
-            });
-        }
-        
+        const charData = { math: ['∑', '∫', '∏', '√', '∞', '≠', '≈', '≤', '≥', '±', '×', '÷', '∂', '∆', '∇', '∅', '∈', '∉',
+                '∩', '∪', '⊂', '⊃', '⊆', '⊇', '∧', '∨', '∀', '∃', '∴', '∵'
+            ], currency: ['$', '€', '£', '¥', '¢', '₩', '₹', '₽', '₿', '₺', '₴', '₸', '₮', '₦', '₱', '฿', '៛', '₫', '₭', '₲',
+                '₵', '₡', '₢', '₤', '₥', '₧', '₨', '₪'
+            ], arrow: ['←', '→', '↑', '↓', '↔', '↕', '⇄', '⇅', '⇆', '⇇', '⇈', '⇉', '⇊', '↶', '↷', '↺', '↻', '↰', '↱', '↲',
+                '↳', '↵', '↴', '↵', '↩', '↪', '↫', '↬', '↭', '↮'
+            ], emoji: ['😀', '😂', '🤣', '😊', '😍', '🥰', '😎', '🤩', '🥳', '😜', '🤪', '😇', '🥺', '😢', '😭', '😡', '🤬', '🤯',
+                '🥶', '😱', '🤔', '😴', '🥱', '😈', '👻', '💀', '👽', '🤖', '💩', '🎃'
+            ], tech: ['⌘', '⌥', '⌃', '⇧', '⇪', '⌫', '⌦', '↩', '⏎', '⎋', '⇥', '⏏', '⏭', '⏮', '⏯', '⏹', '⏺', '⏏', '⏩', '⏪',
+                '⏫', '⏬', '◀', '▶', '▲', '▼', '◆', '■', '○', '●'
+            ] };
+
+        function updateCharTable() { const category = document.getElementById('charCategory').value; const chars = charData[
+                category] || []; const table = document.getElementById('charTableDisplay');
+            table.innerHTML = '';
+            chars.forEach(char => { const div = document.createElement('div');
+                div.className = 'char-item';
+                div.textContent = char;
+                div.onclick = () => { navigator.clipboard.writeText(char).then(() => { document.getElementById(
+                            'copiedChar').value = char;
+                        div.style.backgroundColor = '#4CAF50';
+                        div.style.color = 'white';
+                        setTimeout(() => { div.style.backgroundColor = '';
+                            div.style.color = ''; }, 500); }); };
+                table.appendChild(div); }); }
+
         // ==================== 颜色选择器 ====================
-        function initColorPicker() {
-            const colorPicker = document.getElementById('colorPicker');
-            const hexValue = document.getElementById('hexValue');
-            const rgbValue = document.getElementById('rgbValue');
-            const colorPreview = document.getElementById('colorPreview');
-            
-            function updateColor() {
-                const color = colorPicker.value;
-                hexValue.value = color;
-                
-                const r = parseInt(color.slice(1, 3), 16);
-                const g = parseInt(color.slice(3, 5), 16);
-                const b = parseInt(color.slice(5, 7), 16);
-                rgbValue.value = `rgb(${r}, ${g}, ${b})`;
-                colorPreview.style.backgroundColor = color;
-            }
-            
-            colorPicker.addEventListener('input', updateColor);
-            updateColor();
-        }
-        
+        function initColorPicker() { const picker = document.getElementById('colorPickerInput');
+            const update = () => { const hex = picker.value;
+                document.getElementById('hexValue').value = hex; const r = parseInt(hex.slice(1, 3), 16),
+                    g = parseInt(hex.slice(3, 5), 16), b = parseInt(hex.slice(5, 7), 16);
+                document.getElementById('rgbValue').value = `rgb(${r}, ${g}, ${b})`; const hsl = rgbToHsl(r, g, b);
+                document.getElementById('hslValue').value =
+                    `hsl(${hsl[0]}, ${hsl[1]}%, ${hsl[2]}%)`;
+                document.getElementById('colorPreview').style.backgroundColor = hex; };
+            picker.addEventListener('input', update);
+            update(); }
+
+        function rgbToHsl(r, g, b) { r /= 255;
+            g /= 255;
+            b /= 255; const max = Math.max(r, g, b),
+                min = Math.min(r, g, b); let h, s, l = (max + min) / 2; if (max === min) { h = s = 0; } else { const d = max -
+                    min;
+                s = l > 0.5 ? d / (2 - max - min) : d / (max + min); switch (max) { case r:
+                        h = ((g - b) / d + (g < b ? 6 : 0)) / 6; break; case g:
+                        h = ((b - r) / d + 2) / 6; break; case b:
+                        h = ((r - g) / d + 4) / 6; break; } } return [Math.round(h * 360), Math.round(s * 100), Math.round(
+                    l * 100)]; }
+
+        function copyColorValue(type) { let val; switch (type) { case 'hex':
+                val = document.getElementById('hexValue').value; break; case 'rgb':
+                val = document.getElementById('rgbValue').value; break; case 'hsl':
+                val = document.getElementById('hslValue').value; break; }
+            navigator.clipboard.writeText(val).then(() => alert(`已复制: ${val}`)); }
+
+        // ==================== 辅助函数 ====================
+        function escapeHtml(text) { const div = document.createElement('div');
+            div.textContent = text; return div.innerHTML; }
+
+        function showResult(id, msg, type) { const el = document.getElementById(id);
+            el.innerHTML = `<div style="color: ${type === 'error' ? '#f44336' : '#666'};">${msg}</div>`; }
+
         // ==================== 页面初始化 ====================
         document.addEventListener('DOMContentLoaded', function() {
-            // 初始化实时时间
             updateTime();
             setInterval(updateTime, 1000);
-            
-            // 初始化单位转换器
             changeConverterType();
-            
-            // 初始化画图板
             initDrawing();
-            
-            // 初始化特殊字符表
             updateCharTable();
-            
-            // 初始化颜色选择器
             initColorPicker();
-            
-            // 初始化代码统计
+            generateUUID();
+            generatePassword();
+            generateQRCode();
             document.getElementById('codeInput').addEventListener('input', updateCodeStats);
             updateCodeStats();
-            
-            // 初始化单位转换器的输入监听
             document.getElementById('fromValue').addEventListener('input', convertUnits);
             document.getElementById('fromUnit').addEventListener('change', convertUnits);
             document.getElementById('toUnit').addEventListener('change', convertUnits);
-            
-            console.log("多功能工具箱已加载完成！");
+            // 正则输入时实时测试
+            document.getElementById('regexPattern').addEventListener('input', testRegex);
+            // 设置默认日期时间为当前
+            const now = new Date();
+            document.getElementById('dateInput').value = now.toISOString().slice(0, 16);
+            console.log("多功能工具箱已加载完成！包含: JSON格式化、正则测试、时间戳转换、URL编解码、哈希生成、代码对比、UUID生成、二维码生成等工具");
         });
     </script>
 </body>
